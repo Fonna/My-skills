@@ -49,6 +49,7 @@ description: "一句话说明触发场景与用途，并列出触发词。例如
 | 文件夹 | 名称 | 用途 |
 | --- | --- | --- |
 | `dictation-pdf-generator` | 中译英默写本 PDF 生成 | 把单词书 / 词汇表图片转成可打印的一行两列 A4 默写本 PDF |
+| `gf-futures-settlement` | 广发期货结算单解析 | 解析 Outlook 广发期货每日结算邮件（GBK 附件）：实际盈亏 / 当日盯市 / 浮盈浮亏三分口径 + 权益勾稽自检，输出结构化 JSON 与累积 CSV（settlement_summary / trades）供账户趋势分析；配套 Outlook 收件箱自动归档规则 |
 
 > 新增技能后，请在此表格补一行。
 
