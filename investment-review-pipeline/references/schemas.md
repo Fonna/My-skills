@@ -6,19 +6,19 @@
 
 | 项 | 值 |
 |---|---|
-| 知识库（Obsidian） | `D:\Glean_Vault` |
+| 知识库（Obsidian） | `D:\Github\Futures_Vault` |
 | 期货数据项目 | `D:\Github\futures_workbench` |
 | 5 聚焦品种（代码） | 玻璃 `FG` / 纯碱 `SA` / PTA / 甲醇 `MA` / 鸡蛋 `JD` |
 | signals 目录 | `D:\Github\futures_workbench\data\{VARIETY}\signals.json` |
-| 机构席位面报告 | `D:\Glean_Vault\投资\复盘_机构席位面_YYYY-MM-DD.md` |
-| 跨品种技术面 | `D:\Glean_Vault\投资\跨品种技术面_YYYY-MM-DD.md` |
-| 五品种全景 | `D:\Glean_Vault\投资\复盘_五品种全景分析_YYYY-MM-DD.md` |
-| 双轨 HTML | `D:\Glean_Vault\素材\YYYY-MM-DD_跨品种技术面快照.html` |
-| 龙虎榜 HTML | `D:\Glean_Vault\素材\YYYY-MM-DD_龙虎榜快照.html` |
-| 龙虎榜 md | `D:\Glean_Vault\投资\龙虎榜快照_YYYY-MM-DD.md` |
-| 持仓记录 | `D:\Glean_Vault\投资\持仓记录.md` |
-| 研报信息源 | `D:\Glean_Vault\投资\研报信息源.md`（渠道验证状态 + 品种速查） |
-| 操作手册 | `D:\Glean_Vault\AGENTS.md`（§5 会话启动 / §9 HTML 双轨 / 铁律 2·4·5） |
+| 机构席位面报告 | `D:\Github\Futures_Vault\历史快照/YYYY-MM/复盘_机构席位面_YYYY-MM-DD.md` |
+| 跨品种技术面 | `D:\Github\Futures_Vault\历史快照/YYYY-MM/跨品种技术面_YYYY-MM-DD.md` |
+| 五品种全景 | `D:\Github\Futures_Vault\历史快照/YYYY-MM/复盘_五品种全景分析_YYYY-MM-DD.md` |
+| 双轨 HTML | `D:\Github\Futures_Vault\原始资料/YYYY-MM/YYYY-MM-DD_跨品种技术面快照.html` |
+| 龙虎榜 HTML | `D:\Github\Futures_Vault\原始资料/YYYY-MM/YYYY-MM-DD_龙虎榜快照.html` |
+| 龙虎榜 md | `D:\Github\Futures_Vault\历史快照/YYYY-MM/龙虎榜快照_YYYY-MM-DD.md` |
+| 持仓记录 | `D:\Github\Futures_Vault\交易复盘\持仓\持仓记录.md` |
+| 研报信息源 | `D:\Github\Futures_Vault\研究资料\研报信息源.md`（渠道验证状态 + 品种速查） |
+| 操作手册 | `D:\Github\Futures_Vault\AGENTS.md`（交易库维护、口径、迁移和同步规则） |
 
 > 鸡蛋 JD = 内资主导品种，无外资维度；其余 4 品种有外资（智大领峰）。
 
@@ -105,5 +105,5 @@ python check_completeness.py --data-dir data --varieties FG SA PTA MA JD --auto-
 
 ## 研报信息源管理
 
-- 渠道验证状态集中在 `投资/研报信息源.md`：已验证渠道 → 每次必查；待验证 → 仅参考不入结论。
+- 渠道验证状态集中在 `研究资料/研报信息源.md`：已验证渠道 → 每次必查；待验证 → 仅参考不入结论。
 - Stage 2 的「细化」即把新确认的稳定源沉淀进此文件，并可在 skill 内增抓取脚本。

@@ -18,7 +18,7 @@ description: 解析广发期货每日交易结算单（Outlook 邮件附件，GB
    ```
    也支持 `--txt`（已解码文本）。`--out-dir` 默认输入同目录；`--csv-dir` 默认同 out-dir。脚本 stdout 即中文摘要 + 勾稽校验结果。
 4. **回答用户**：基于 stdout 与 `<out-dir>/gf_settlement_<日期>.json`。三个盈亏口径必须分清：**实际盈亏**（已平仓实现）、**当日盯市**（结算单口径的单日持仓盈亏）、**浮盈浮亏**（当前持仓按今结算价对开仓价的累计浮动，脚本按结算单反推乘数后计算）。
-5. **长期分析**：`settlement_summary.csv` 按结算日一行（同日重跑幂等覆盖）、`trades.csv` 按成交序号去重追加（UTF-8 BOM，Excel 直接开）。**固定累积目录（2026-09-29 起）**：`--csv-dir D:\Github\Glean_Vault\投资\结算单数据`（鹏哥知识库 git 仓库）；同步动作：知识库 `投资/结算单解析.md` 追加当日摘要节、解码原件放 `素材/YYYY-MM-DD_广发期货结算单.txt`、按库内铁律更新 index.md + log.md。git commit/push 需用户授权。
+5. **长期分析**：`settlement_summary.csv` 按结算日一行（同日重跑幂等覆盖），`trades.csv` 按成交序号去重追加（UTF-8 BOM）。**固定累积目录（2026-10-08 迁移后）**：`--out-dir D:\Futures_Data\账户归档\结算单数据 --csv-dir D:\Futures_Data\账户归档\结算单数据`。解码原件放 `D:\Futures_Data\账户归档\原件\YYYY-MM-DD_广发期货结算单.txt`；摘要维护 `D:\Github\Futures_Vault\交易复盘\账户\结算单解析.md`，更新交易库 index.md 和 log.md。账户数据目录独立归档，不能再写入 Glean_Vault/投资/结算单数据；Git 提交/推送遵循用户当前授权。
 
 ## 校验与异常
 

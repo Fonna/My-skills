@@ -4,7 +4,7 @@
 
 ---
 
-## A. 机构席位面（`投资/复盘_机构席位面_YYYY-MM-DD.md`）
+## A. 机构席位面（`历史快照/YYYY-MM/复盘_机构席位面_YYYY-MM-DD.md`）
 
 仅当用户口述了席位数据才产。对照上一交易日基准。
 
@@ -38,14 +38,14 @@
 
 ---
 
-## B. 跨品种技术面（`投资/跨品种技术面_YYYY-MM-DD.md` + 双轨 HTML）
+## B. 跨品种技术面（`历史快照/YYYY-MM/跨品种技术面_YYYY-MM-DD.md` + 双轨 HTML）
 
 md 摘要（知识库入口）：
 
 ```markdown
 # 跨品种技术面对比（全 14 品种 · YYYY-MM-DD 收盘）
 
-> 双轨：HTML 原件见 `素材/YYYY-MM-DD_跨品种技术面快照.html`；本 md 为可搜/可链入口。
+> 双轨：HTML 原件见 `原始资料/YYYY-MM/YYYY-MM-DD_跨品种技术面快照.html`；本 md 为可搜/可链入口。
 > 数据口径：futures_workbench signals.json fetch_date=YYYY-MM-DD。
 
 | 品种 | 收 | 5y分位 | 趋势 | 关键信号 |
@@ -57,11 +57,11 @@ md 摘要（知识库入口）：
 | MA | 2718 | 80.6% | 震荡 | 高百分位，未翻空 |
 ```
 
-HTML 看板（`素材/YYYY-MM-DD_跨品种技术面快照.html`）：深色表格，全 14 品种，聚焦 5 品种高亮；含收/分位/均线/MACD/趋势。可直接套用 `scripts/gen_tech_snapshot.py`（输入 signals 提取结果）。
+HTML 看板（`原始资料/YYYY-MM/YYYY-MM-DD_跨品种技术面快照.html`）：深色表格，全 14 品种，聚焦 5 品种高亮；含收/分位/均线/MACD/趋势。可直接套用 `scripts/gen_tech_snapshot.py`（输入 signals 提取结果）。
 
 ---
 
-## B2. 99qh 龙虎榜快照（`投资/龙虎榜快照_YYYY-MM-DD.md` + 双轨 HTML）
+## B2. 99qh 龙虎榜快照（`历史快照/YYYY-MM/龙虎榜快照_YYYY-MM-DD.md` + 双轨 HTML）
 
 与席位面（智大领峰口述）形成**双源对照**，结论交叉验证。
 
@@ -70,7 +70,7 @@ md 摘要（知识库入口，可搜/可链）：
 ```markdown
 # 99qh 龙虎榜快照（五品种 · YYYY-MM-DD）
 
-> 双轨：HTML 原件见 `素材/YYYY-MM-DD_龙虎榜快照.html`；本 md 为可搜/可链入口。
+> 双轨：HTML 原件见 `原始资料/YYYY-MM/YYYY-MM-DD_龙虎榜快照.html`；本 md 为可搜/可链入口。
 > 数据源：futures_workbench position_ranking.csv（99qh 期货公司会员持仓排名，不分内外资）。
 > 口径：净持仓 = 多头合计 − 空头合计（净空为负）；CSV 无日期列，以 mtime 判断新鲜度。
 
@@ -85,20 +85,20 @@ md 摘要（知识库入口，可搜/可链）：
 **双源对照结论**：鸡蛋 99qh 机构加空 ↔ 席位面内资加空 同向（对 JD2609 多单双重逆风）；
 纯碱 99qh 当日空头减仓 ↔ 席位面共振加空 反向（口径不同：99qh=国内会员 / 智大领峰=机构外资净持仓，非数据冲突）。
 
-↩️ 回链：详析见 [[投资/复盘_龙虎榜_YYYY-MM-DD]]；席位面 [[投资/复盘_机构席位面_YYYY-MM-DD]]。
+↩️ 回链：详析见 [[历史快照/YYYY-MM/复盘_龙虎榜_YYYY-MM-DD]]；席位面 [[历史快照/YYYY-MM/复盘_机构席位面_YYYY-MM-DD]]。
 ```
 
-HTML 看板（`素材/YYYY-MM-DD_龙虎榜快照.html`）：深色看板，全 14 品种摘要表 + 聚焦 5 品种分块（TOP5 多/空席位 + 净持仓/净变动）。直接套用 `scripts/gen_ranking_snapshot.py`：
+HTML 看板（`原始资料/YYYY-MM/YYYY-MM-DD_龙虎榜快照.html`）：深色看板，全 14 品种摘要表 + 聚焦 5 品种分块（TOP5 多/空席位 + 净持仓/净变动）。直接套用 `scripts/gen_ranking_snapshot.py`：
 
 ```bash
 cd D:\Github\futures_workbench
-python gen_ranking_snapshot.py --data-dir data --out "素材/YYYY-MM-DD_龙虎榜快照.html" \
+python gen_ranking_snapshot.py --data-dir data --out "原始资料/YYYY-MM/YYYY-MM-DD_龙虎榜快照.html" \
     --focus FG SA PTA MA JD --title "99qh 龙虎榜快照 YYYY-MM-DD" --print-summary
 ```
 
 ---
 
-## C. 五品种全景分析（`投资/复盘_五品种全景分析_YYYY-MM-DD.md`）
+## C. 五品种全景分析（`历史快照/YYYY-MM/复盘_五品种全景分析_YYYY-MM-DD.md`）
 
 核心交付物。四维合一对齐。
 
@@ -125,9 +125,9 @@ python gen_ranking_snapshot.py --data-dir data --out "素材/YYYY-MM-DD_龙虎�
 
 ## D. 双轨 HTML 归档范式（AGENTS.md §9）
 
-- HTML 原件进 `素材/`，命名 `YYYY-MM-DD_描述.html`，只读不改。
-- md 摘要进 `投资/`，含：关键数字表 + 结论 + 关联 wikilink。
-- 反向引用 HTML 用反引号字面量：`` `素材/YYYY-MM-DD_跨品种技术面快照.html` ``。
+- HTML 原件进 `原始资料/YYYY-MM/`，命名 `YYYY-MM-DD_描述.html`，只读不改。
+- md 摘要进 `历史快照/YYYY-MM/`，含：关键数字表 + 结论 + 关联 wikilink。
+- 反向引用 HTML 用反引号字面量：`` `原始资料/YYYY-MM/YYYY-MM-DD_跨品种技术面快照.html` ``。
   ❌ 勿用 `[[...html]]`（Obsidian 不渲染内部 HTML 链接）。
 
 ---
@@ -137,14 +137,14 @@ python gen_ranking_snapshot.py --data-dir data --out "素材/YYYY-MM-DD_龙虎�
 **index.md**：每份新文件加一行（含 `[[wikilink]]`），并更新顶部「最后更新」：
 
 ```markdown
-- [[投资/复盘_五品种全景分析_YYYY-MM-DD]] — 五品种全景(四维合一)：SA/FG强趋势空(极值超卖不追空)/PTA撕裂单(四视角全逆空·裸空无止损风险最高档)/JD逆风多单(三视角全逆·破4310裸扛)/MA偏多但高分位+减多+上行乏力；霍尔木兹变量贯穿PTA/MA；§5遗漏检查=四维无缺
+- [[历史快照/YYYY-MM/复盘_五品种全景分析_YYYY-MM-DD]] — 五品种全景(四维合一)：SA/FG强趋势空(极值超卖不追空)/PTA撕裂单(四视角全逆空·裸空无止损风险最高档)/JD逆风多单(三视角全逆·破4310裸扛)/MA偏多但高分位+减多+上行乏力；霍尔木兹变量贯穿PTA/MA；§5遗漏检查=四维无缺
 ```
 
 **log.md**：末尾追加块：
 
 ```markdown
 ## [YYYY-MM-DD HH:MM] 五品种全景分析落档
-- 新建 `投资/复盘_五品种全景分析_YYYY-MM-DD.md`（四维合一）+ `投资/跨品种技术面_YYYY-MM-DD.md` + `素材/YYYY-MM-DD_跨品种技术面快照.html`（双轨）。
+- 新建 `历史快照/YYYY-MM/复盘_五品种全景分析_YYYY-MM-DD.md`（四维合一）+ `历史快照/YYYY-MM/跨品种技术面_YYYY-MM-DD.md` + `原始资料/YYYY-MM/YYYY-MM-DD_跨品种技术面快照.html`（双轨）。
 - 关键价：PTA收5890(回止损区)/JD收4131(翻强趋势空)/SA 1013(0.25%极值)。
 - 霍尔木兹反转：布油破95、通航近零，成本推涨逻辑重燃。
 - §5 遗漏检查：四维无缺；已同步 index+log（铁律5）。
@@ -152,7 +152,7 @@ python gen_ranking_snapshot.py --data-dir data --out "素材/YYYY-MM-DD_龙虎�
 
 ---
 
-## F. 范例：甲醇做空观察（`投资/观察_甲醇做空.md`）
+## F. 范例：甲醇做空观察（`品种研究/专题/观察_甲醇做空.md`）
 
 结构可复用到任何「方向成立、时机未到」的候选：
 

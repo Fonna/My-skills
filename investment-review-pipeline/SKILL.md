@@ -1,6 +1,6 @@
 ---
 name: investment-review-pipeline
-description: "This skill should be used when conducting the daily or periodic futures investment review (期货投资复盘) for the user's focused varieties. It chains three stages: (1) pre-review data readiness check — verifying the futures_workbench signals are fresh and collecting the user's orally-dictated institutional seat positions; (2) public research and fundamental data search-verify-summarize; (3) per-variety comprehensive report production with dual-track HTML archival and index/log sync per Glean_Vault AGENTS.md. Trigger phrases include 做投资复盘, 期货复盘, 机构持仓复盘, 整理一份品种分析报告, or any request to review 玻璃/纯碱/PTA/甲醇/鸡蛋 positions and research."
+description: "This skill should be used when conducting the daily or periodic futures investment review (期货投资复盘) for the user's focused varieties. It chains three stages: (1) pre-review data readiness check — verifying the futures_workbench signals are fresh and collecting the user's orally-dictated institutional seat positions; (2) public research and fundamental data search-verify-summarize; (3) per-variety comprehensive report production with dual-track HTML archival and index/log sync per Futures_Vault AGENTS.md. Trigger phrases include 做投资复盘, 期货复盘, 机构持仓复盘, 整理一份品种分析报告, or any request to review 玻璃/纯碱/PTA/甲醇/鸡蛋 positions and research."
 license: Personal workflow skill (Pang)
 agent_created: true
 ---
@@ -16,7 +16,7 @@ agent_created: true
 3. **报告制作** — 产出各品种汇总分析报告，落库并双轨归档、同步 index/log。
 
 默认聚焦的 5 个品种：**玻璃 FG / 纯碱 SA / PTA / 甲醇 MA / 鸡蛋 JD**。
-核心路径（见 `references/schemas.md` 的「路径与常量」）：知识库 `D:\Glean_Vault`、期货项目 `D:\Github\futures_workbench`。
+核心路径（见 `references/schemas.md` 的「路径与常量」）：知识库 `D:\Github\Futures_Vault`、期货项目 `D:\Github\futures_workbench`。
 
 > 本 skill 是**流程编排器**。每步的字段级细节、研报源清单、报告模板都在 `references/` 里，按需 Load。
 
@@ -24,9 +24,9 @@ agent_created: true
 
 ## 0. 开工前（每轮必做）
 
-- 读 `D:\Glean_Vault\AGENTS.md`：重点 §5（会话启动 4 步：读 index → 读 log 末 3-5 条 → 读 鹏哥_个人档案 → 读 目标_副业变现）、§9（HTML 双轨归档）、铁律 2/4/5。
-- 读 `D:\Glean_Vault\index.md` 与 `log.md` 末尾，对齐最近做了什么。
-- 读 `投资/持仓记录.md` 拿当前持仓（PTA 裸空 @5404、鸡蛋多 @4326 等——以文件为准，别凭记忆）。
+- 读 `D:\Github\Futures_Vault\AGENTS.md`，按交易库维护、来源、口径和同步规则执行；不为期货复盘加载个人生活/工作档案。
+- 读 `D:\Github\Futures_Vault\index.md` 与 `log.md` 末尾，对齐最近做了什么。
+- 读 `交易复盘/持仓/持仓记录.md` 拿最后一次人工持仓快照并核对日期；实际状态以用户确认/账户记录为准，不沿用历史例子。
 - 关键口径红线（必记，错了全盘乱）：
   - **智大领峰（机构/外资净持仓）= 用户口述源**；**99qh 龙虎榜（期货公司席位排名）= futures_workbench 抓取源**。两者是**不同源**，方向可能相反，绝不能混为一谈。
   - 鸡蛋 JD 是**内资主导品种，无外资维度**。
@@ -38,7 +38,7 @@ agent_created: true
 目标：进入分析前，确认两类数据源都就绪；不齐就先补齐，否则分析基于过期数据会出错。
 
 ### 1.1 拉取线上知识库更新
-- 若知识库用 git 同步：`cd D:\Glean_Vault && git status -uno` 看是否领先/落后；若落后，先 `git pull --no-rebase`（该仓库历史用 merge commit，勿 rebase）。
+- 若知识库用 git 同步：`cd D:\Github\Futures_Vault && git status -uno` 看是否领先/落后；若落后，先 `git pull --no-rebase`（该仓库历史用 merge commit，勿 rebase）。
 - 合并若有冲突：保留用户白天 commit，本地未提交工作先 `git commit` 再 pull，干净 merge 后继续。
 
 ### 1.2 检查期货项目数据完整性（信号 + 龙虎榜，不齐则补全）
@@ -78,7 +78,7 @@ agent_created: true
 - **政策面检索必做**（2026-07-28 用户指出缺口后固化）：检索词须覆盖「反内卷 / 稳地产 / 出口退税·关税 / 收储·抛储 / 安全生产新规 / 产能置换·技改 / 反倾销」等自上而下政策变量。注意：`query_keyword_groups` 是**字符串数组**（每组一个短语字符串），不是嵌套数组——传嵌套数组会参数报错。
 
 ### 2.2 验证（关键，防假研报）
-- 渠道验证状态以 `投资/研报信息源.md` 为准（见 `references/schemas.md`）。**未验证渠道的研报只作参考，不写进结论性判断**。
+- 渠道验证状态以 `研究资料/研报信息源.md` 为准（见 `references/schemas.md`）。**未验证渠道的研报只作参考，不写进结论性判断**。
 - 多家交叉：同一品种的多空结论若冲突，分别记录「偏多派依据 / 偏空派依据」，不强行统一。
 - 区分「预期」与「已发生」：如「7 月下旬到港 67 万吨累库**预期**」≠「港口库存已累」——做空触发要以实打实数字为准（见 `references/report-templates.md` 甲醇做空观察范例）。
 
@@ -92,17 +92,17 @@ agent_created: true
 - 地缘变量：PTA、甲醇同受**霍尔木兹(Hormuz)** 通航/油价影响，作为贯穿变量单独标注（布油破 90+ / 通航近零 = 成本推涨逻辑活）。
 
 ### 2.4 细化机制（演进项）
-- 本阶段随 `投资/研报信息源.md` 里渠道验证状态逐步**细化**：已验证渠道可固定为「每次必查」；新渠道先入「待验证」。
+- 本阶段随 `研究资料/研报信息源.md` 里渠道验证状态逐步**细化**：已验证渠道可固定为「每次必查」；新渠道先入「待验证」。
 - 后期若用户确认了稳定的研报/基本面数据源（RSS / API / 本地抓取），在此 stage 增加对应抓取与解析脚本，并把口径沉淀回 `references/schemas.md`。
 
 ### 2.5 波动友好度扫描（常做品种筛选标配）
-- **定位**：品种筛选的量化底表——用「波动幅度(ATR%/日内振幅%) + 波动质量(反转率/搓揉率)」给全部 14 个品种打「友好度」分，排名靠前的优先纳入主攻清单，排名靠后(高波动+高反转)需压仓或机械条件单。2026-08-03 由用户体感"鸡蛋波动大难做"触发、经量化校正后确立为常驻维度（见 `投资/策略思考.md` §十）。
+- **定位**：品种筛选的量化底表——用「波动幅度(ATR%/日内振幅%) + 波动质量(反转率/搓揉率)」给全部 14 个品种打「友好度」分，排名靠前的优先纳入主攻清单，排名靠后(高波动+高反转)需压仓或机械条件单。2026-08-03 由用户体感"鸡蛋波动大难做"触发、经量化校正后确立为常驻维度（见 `交易体系/策略思考.md` §十）。
 - **脚本**：`scripts/vol_friendliness_scan.py`（纯标准库·自包含）。自动发现 `data/` 下全部品种，输出按友好度降序排名 + `--md` 出 markdown 表。
   ```bash
   python scripts/vol_friendliness_scan.py --today YYYY-MM-DD --md
   ```
 - **指标口径（与 §十一致）**：ATR% = 近60日平均真实波幅/收盘×100（含跳空）；日内振幅% = (H-L)/C 均值；搓揉率% = 实体占比<0.35 的K线比例；反转率% = 收阳收下部(上影长)/收阴收上部(下影长)的K线比例；**友好度 = 100 − (ATR%归一+日内幅%归一+反转率%归一)/3（组内相对分，随参与品种变化，勿跨月直接比绝对值）**。
-- **运行节奏**：每月初（自动化 recurring）跑一次，产出 `投资/波动友好度排名_YYYY-MM.md`，更新 index；数据须先刷新至当月（否则排名为旧数据）。
+- **运行节奏**：每月初（自动化 recurring）跑一次，产出 `品种研究/专题/波动友好度排名_YYYY-MM.md`，更新 index；数据须先刷新至当月（否则排名为旧数据）。
 - **判读红线**：友好度垫底品种 = 当前最难拿方向单（如 2026-08 PTA 友好度 10.7 全市场最低、甲醇 16.9 次低 = 裸空最易被洗），筛选时主动回避或仅做极轻仓+机械单。
 
 ---
@@ -117,23 +117,23 @@ agent_created: true
 - 演进候选：仓单/交割维度（signals 的 `wh_*` 字段）尚未系统化，评估中。
 
 ### 3.2 产出三类报告（模板见 `references/report-templates.md`）
-1. `投资/复盘_机构席位面_YYYY-MM-DD.md` — 仅当用户口述了席位数据才产；对照上一交易日基准。
-2. `投资/跨品种技术面_YYYY-MM-DD.md` — 全 14 品种技术快照（取自 signals）+ **双轨 HTML** `素材/YYYY-MM-DD_跨品种技术面快照.html`。
-3. `投资/复盘_五品种全景分析_YYYY-MM-DD.md` — 五品种**五维合一**对齐的综合报告（核心交付物，含政策面单列）。
-4. `投资/龙虎榜快照_YYYY-MM-DD.md` — 99qh 龙虎榜**双轨 md 入口** + **双轨 HTML** `素材/YYYY-MM-DD_龙虎榜快照.html`（见 report-templates.md B2；与席位面形成双源对照）。
-5. `投资/波动友好度排名_YYYY-MM.md` — 月度全 14 品种「波动友好度」排名（§2.5 脚本产出），作为常做品种筛选标配；含排名表 + 口径说明 + 当月红灯品种提示。
+1. `历史快照/YYYY-MM/复盘_机构席位面_YYYY-MM-DD.md` — 仅当用户口述了席位数据才产；对照上一交易日基准。
+2. `历史快照/YYYY-MM/跨品种技术面_YYYY-MM-DD.md` — 全 14 品种技术快照（取自 signals）+ **双轨 HTML** `原始资料/YYYY-MM/YYYY-MM-DD_跨品种技术面快照.html`。
+3. `历史快照/YYYY-MM/复盘_五品种全景分析_YYYY-MM-DD.md` — 五品种**五维合一**对齐的综合报告（核心交付物，含政策面单列）。
+4. `历史快照/YYYY-MM/龙虎榜快照_YYYY-MM-DD.md` — 99qh 龙虎榜**双轨 md 入口** + **双轨 HTML** `原始资料/YYYY-MM/YYYY-MM-DD_龙虎榜快照.html`（见 report-templates.md B2；与席位面形成双源对照）。
+5. `品种研究/专题/波动友好度排名_YYYY-MM.md` — 月度全 14 品种「波动友好度」排名（§2.5 脚本产出），作为常做品种筛选标配；含排名表 + 口径说明 + 当月红灯品种提示。
 
-### 3.3 双轨归档（AGENTS.md §9，铁律级）
-- HTML 原件 → `素材/YYYY-MM-DD_描述.html`（只读不改，浏览器看）。
-- md 摘要 → `投资/` 对应页，含**关键数字表 + 结论 + 关联 wikilink**，反向引用用反引号字面量 `素材/...html`（勿用 `[[...html]]`，Obsidian 不渲染）。
+### 3.3 双轨归档（交易库 AGENTS.md）
+- HTML 原件 → `原始资料/YYYY-MM/YYYY-MM-DD_描述.html`（只读不改，浏览器看）。
+- md 摘要 → `历史快照/YYYY-MM/` 对应页，含**关键数字表 + 结论 + 关联 wikilink**，反向引用用反引号字面量 `原始资料/YYYY-MM/...html`（勿用 `[[...html]]`，Obsidian 不渲染）。
 
 ### 3.4 铁律 5 — index + log 同步（每次必做）
-- `index.md`：为每份新文件加一行摘要（含 wikilink），顺手更新顶部「最后更新」日期。
+- `index.md`：日常快照按月份索引，根索引只保留系列/月份入口；有新增知识的页面加摘要（含 wikilink），顺手更新顶部「最后更新」日期。
 - `log.md`：末尾追加 `## [YYYY-MM-DD HH:MM] 这次更新了什么` 块。
 - 冲突先问（铁律 4）：新旧信息矛盾时标 `⚠️ 待确认` 问用户，不覆盖。不编造（铁律 2）。
 
 ### 3.5 持仓记录刷新
-- 若当日有价格变动影响持仓（如 PTA 收 5890 回止损区、鸡蛋收 4131 破位），同步刷新 `投资/持仓记录.md` 的当日状态块 + 快照表 + 更新历史行。
+- 若当日有价格变动影响持仓（如 PTA 收 5890 回止损区、鸡蛋收 4131 破位），同步刷新 `交易复盘/持仓/持仓记录.md` 的当日状态块 + 快照表 + 更新历史行。
 
 ### 3.6 收尾
 - 本地 `git commit`（描述清楚本轮产物）。
