@@ -56,6 +56,10 @@ description: "一句话说明触发场景与用途，并列出触发词。例如
 
 > 新增技能后，请在此表格补一行。
 
+## 外部优秀 Skill 收藏
+
+不收入库的外部好 Skill（他人维护），记录在 [good-skills.md](good-skills.md)：基础介绍、地址、安装方式、适用平台等。
+
 ## 新增一个技能
 
 1. 在仓库根目录新建文件夹：`mkdir <your-skill-name>`。
