@@ -5,3 +5,11 @@
 .DS_Store
 Thumbs.db
 *.swp
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# Chrome 阅读清单个人导出结果（自定义文件名请输出到仓库外）
+chrome_reading_list.md
+chrome_reading_list.json

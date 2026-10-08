@@ -1,6 +1,6 @@
 # My-skills
 
-个人定制的 WorkBuddy 技能（Skill）仓库。用于集中管理、版本化、备份我自己写的可复用技能，方便在多台机器 / 多个会话间同步。
+个人技能（Skill）仓库。用于集中管理、版本化、备份自己编写或已安装后沉淀的可复用技能，方便在多台机器 / 多个会话间同步，并在 WorkBuddy 等兼容平台使用。
 
 > 远程地址：`git@github.com:Fonna/My-skills.git`　|　默认分支：`main`
 
@@ -14,6 +14,10 @@
 My-skills/
 ├── README.md
 ├── .gitignore
+├── chrome-reading-list/         # Chrome 阅读清单导出
+│   ├── SKILL.md
+│   ├── README.md                 # 使用说明与依赖
+│   └── scripts/export_reading_list.py
 ├── dictation-pdf-generator/      # 一个技能 = 一个文件夹
 │   └── SKILL.md                  # 技能主体（必含 frontmatter）
 └── <your-skill-name>/
@@ -48,6 +52,7 @@ description: "一句话说明触发场景与用途，并列出触发词。例如
 
 | 文件夹 | 名称 | 用途 |
 | --- | --- | --- |
+| [chrome-reading-list](chrome-reading-list/README.md) | Chrome 阅读清单导出 | 读取本机 Chrome 的 Reading List / 稍后阅读，导出 Markdown 和可选 JSON，统计已读 / 未读；支持指定 Profile 与 User Data 路径 |
 | `dictation-pdf-generator` | 中译英默写本 PDF 生成 | 把单词书 / 词汇表图片转成可打印的一行两列 A4 默写本 PDF |
 | `gf-futures-settlement` | 广发期货结算单解析 | 解析 Outlook 广发期货每日结算邮件（GBK 附件）：实际盈亏 / 当日盯市 / 浮盈浮亏三分口径 + 权益勾稽自检，输出结构化 JSON 与累积 CSV（settlement_summary / trades）供账户趋势分析；配套 Outlook 收件箱自动归档规则 |
 | `investment-review-pipeline` | 期货复盘与选品流水线 | 5 品种（FG/SA/PTA/MA/JD）信号 + 龙虎榜数据完整性检查与自动补全、全品种波动友好度排名、技术面与龙虎榜 HTML 看板；复盘前必跑 |
@@ -73,6 +78,8 @@ description: "一句话说明触发场景与用途，并列出触发词。例如
    git push origin main
    ```
 
+已有的本地技能也可将整个文件夹复制到仓库根目录，保留 `SKILL.md` 及其引用的脚本、参考资料和资源，再更新上面的技能索引。只归档可复用技能文件，个人导出结果及本地缓存不入库。
+
 ## 把技能装到 WorkBuddy 上使用
 
 WorkBuddy 的**用户级技能**目录是：
@@ -91,6 +98,7 @@ C:\Users\<你的用户名>\.workbuddy\skills\
 
 ## 版本管理约定
 
-- 主分支 `main`，提交信息用 `feat:` / `fix:` / `chore:` 等前缀，语义清晰即可。
+- 主分支 `main`，提交信息用中文说明变更，可保留 `feat:` / `fix:` / `chore:` 等前缀。
 - `.gitignore` 已排除本地 `.workbuddy/`（含本机记忆，不推送到公仓）及系统垃圾文件。
+- Python 缓存和 Chrome 阅读清单默认导出文件已排除；自定义导出路径建议放在仓库外。
 - 技能内容改动后及时 `commit` + `push`，保持线上为最新。
