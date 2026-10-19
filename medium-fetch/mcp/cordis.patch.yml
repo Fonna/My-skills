@@ -1,0 +1,16 @@
+# medium-fetch-mcp bundle
+#
+# 把零依赖的 Medium 文章抓取 MCP server 以 stdio 方式挂进 DSH。
+# 协议层复用 @deepseek-ai/dsh-mcp-client（与 doubao/gmail/outlook 三个
+# 既有 bundle 完全一致的接入方式）。
+#
+# 挂载后模型侧工具名：mcp__medium-fetch__fetch_medium_article
+#                    mcp__medium-fetch__fetch_medium_article_html
+- insert:
+    - id: medium-fetch-mcp
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: medium-fetch
+        transport: stdio
+        command: /srv/deepseek-harness/workspace/medium-fetch-mcp/run-medium-fetch-mcp.sh
+        failOnStartupError: true
