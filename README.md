@@ -54,6 +54,7 @@ description: "一句话说明触发场景与用途，并列出触发词。例如
 | --- | --- | --- |
 | [chrome-reading-list](chrome-reading-list/README.md) | Chrome 阅读清单导出 | 读取本机 Chrome 的 Reading List / 稍后阅读，导出 Markdown 和可选 JSON，统计已读 / 未读；支持指定 Profile 与 User Data 路径 |
 | `dictation-pdf-generator` | 中译英默写本 PDF 生成 | 把单词书 / 词汇表图片转成可打印的一行两列 A4 默写本 PDF |
+| `wechat-article-pdf` | 公众号图片文章转 PDF | 抓取微信公众号图片型文章（mp.weixin.qq.com），下载原图、区分题目/答案，分别拼成两个 A4 打印 PDF 并归档原图 |
 | `gf-futures-settlement` | 广发期货结算单解析 | 解析 Outlook 广发期货每日结算邮件（GBK 附件）：实际盈亏 / 当日盯市 / 浮盈浮亏三分口径 + 权益勾稽自检，输出结构化 JSON 与累积 CSV（settlement_summary / trades）供账户趋势分析；配套 Outlook 收件箱自动归档规则 |
 | `investment-review-pipeline` | 期货复盘与选品流水线 | 5 品种（FG/SA/PTA/MA/JD）信号 + 龙虎榜数据完整性检查与自动补全、全品种波动友好度排名、技术面与龙虎榜 HTML 看板；复盘前必跑 |
 | `tencent-server-ops` | 腾讯云服务器运维 | GenericAgent Streamlit / 飞书机器人 / futures_workbench / journal 同步的 systemd 服务形态、日志查看、代理与搜索配置、工具白名单等运维参考 |
