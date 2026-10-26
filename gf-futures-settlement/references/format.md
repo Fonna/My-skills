@@ -46,7 +46,18 @@
    `/me/messages/{message-id}/attachments/{attachment-id}`——**不要加 `/$value` 后缀**（本地路径校验会以 shell 展开语法为由拦截），落盘得到含 `contentBytes` 的 JSON。
 3. 邮件移动后 message id 会变，先用文件夹列表拿**新 id** 再取附件。
 
+## 归档位置（Linux 服务器）
+
+| 内容 | 路径 |
+|---|---|
+| 结构化数据 + CSV | `/root/Github/Futures_Vault/账户归档/结算单数据/` |
+| 解码原件 | `/root/Github/Futures_Vault/账户归档/原件/YYYY-MM-DD_广发期货结算单.txt` |
+| 摘要页 | `/root/Github/Futures_Vault/交易复盘/账户/结算单解析.md` |
+
+数据随 Futures_Vault 私有仓库（`git@github-fonna:Fonna/Futures_Vault.git`）git 同步，多机一致。
+
 ## 本机环境坑
 
-- Windows PowerShell 5.1 控制台默认 GBK：跑 Python 先 `$env:PYTHONIOENCODING='utf-8'`；`.ps1` 里不要写中文字面量（无 BOM UTF-8 会被当 ANSI 读）。
-- 解码/解析一律走 `scripts/parse_gf_settlement.py`（纯 stdlib），不要再手写 PS 解码。
+- Linux 下 Python 3 stdout 可能非 UTF-8：跑脚本先设 `PYTHONIOENCODING=utf-8`（脚本内也有 `reconfigure` 兜底）。
+- 附件 `_raw.json` 是临时件，解析完删除，不要提交进库。
+- 解码/解析一律走 `scripts/parse_gf_settlement.py`（纯 stdlib），不要手写解码逻辑。
