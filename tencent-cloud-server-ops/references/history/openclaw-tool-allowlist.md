@@ -1,3 +1,9 @@
+# 已下线OpenClaw历史记录
+
+> 2026-10-27用户确认服务器已没有OpenClaw。以下内容只供旧日志、备份和迁移历史分析，不用于当前服务巡检，不构成重新安装、恢复定时任务、修改配置或重启服务的授权。
+
+> 来源：原 tencent-server-ops 的历史排障记录。合并时未登录服务器核实现状；日期、版本和配置均须按本次任务复核。文中修复步骤不构成自动升级、改配置或重启授权。
+
 # openclaw 工具白名单机制
 
 ## 症状
@@ -28,11 +34,9 @@ agent 在对话里报"web_search 直接禁用"是 openclaw 的工具权限机制
 
 4. 端到端验证：手动跑一次定时任务，确认 agent 能搜到行情（如"沪铝 23665"测试通过）。
 
-## 检查命令
-```bash
-# 看当前 alsoAllow 里有没有 web 工具（grep 应返回非空）
-ssh tencent 'cat /root/.openclaw/agents/*.json | grep -E "web_search|web_fetch|browser"'
-```
+## 检查方式
+
+从当前agent/profile配置只提取 `tools.profile`、`tools.alsoAllow` 和搜索provider名称，隐藏密钥和令牌；不要整份cat配置或输出命中行中的其他字段。先确认安装版本和当前provider契约，不能把历史Tavily配置当成通用修复。
 
 ## 注意
 - openclaw 升级或换 profile 后可能复现。每次升级后检查 alsoAllow 是否还含 web 工具。

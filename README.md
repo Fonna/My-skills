@@ -57,11 +57,13 @@ description: "一句话说明触发场景与用途，并列出触发词。例如
 | `wechat-article-pdf` | 公众号图片文章转 PDF | 抓取微信公众号图片型文章（mp.weixin.qq.com），下载原图、区分题目/答案，分别拼成两个 A4 打印 PDF 并归档原图 |
 | `gf-futures-settlement` | 广发期货结算单解析 | 解析 Outlook 广发期货每日结算邮件（GBK 附件）：实际盈亏 / 当日盯市 / 浮盈浮亏三分口径 + 权益勾稽自检，输出结构化 JSON 与累积 CSV（settlement_summary / trades）供账户趋势分析；配套 Outlook 收件箱自动归档规则 |
 | `investment-review-pipeline` | 期货复盘与选品流水线 | 5 品种（FG/SA/PTA/MA/JD）信号 + 龙虎榜数据完整性检查与自动补全、全品种波动友好度排名、技术面与龙虎榜 HTML 看板；复盘前必跑 |
-| `tencent-server-ops` | 腾讯云服务器运维 | GenericAgent Streamlit / 飞书机器人 / futures_workbench / journal 同步的 systemd 服务形态、日志查看、代理与搜索配置、工具白名单等运维参考 |
+| [tencent-cloud-server-ops](tencent-cloud-server-ops/SKILL.md) | 腾讯云连接与运维 | 合并原两套腾讯云技能，统一 SSH 密钥登录、上传下载与 SHA256 核验，以及 GenericAgent / 飞书前端 / 定时任务 / mihomo 代理排障；OpenClaw 已下线，其资料仅用于历史分析 |
 | `agnes-image` | Agnes AI 图片生成 | 通过 Agnes AI 网关（`apihub.agnes-ai.com/v1`，OpenAI 兼容）调用 `agnes-image-2.5-flash` 生图：文生图 / 图生图 / 多图合成，产物自动下载到本地；当前限免 `$0/张`。需环境变量 `AGNES_API_KEY`（勿与 `ARK_API_KEY` 混用，Key 禁止贴进对话） |
 | `medium-fetch` | Medium 文章抓取 | 绕过 Cloudflare 抓取 Medium 系文章正文（medium.com / towardsai.net 等）：按 freedium 镜像回退链取回纯文本 / Markdown / HTML，含标题与失败原因诊断；附可选的零依赖 MCP server 变体 |
 
 > 新增技能后，请在此表格补一行。
+
+腾讯云技能已统一更名为 `tencent-cloud-server-ops`。已安装旧版 `tencent-server-ops` 的机器，请改用新目录，并停用或移除旧入口，避免重复触发。服务器已于 2026-10-27 由用户确认不再运行 OpenClaw；该技能中的 OpenClaw 附录仅供旧日志、备份和迁移历史分析。
 
 ## 外部优秀 Skill 收藏
 

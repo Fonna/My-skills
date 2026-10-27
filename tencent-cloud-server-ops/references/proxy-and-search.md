@@ -1,3 +1,5 @@
+> 来源：原 tencent-server-ops 的历史排障记录。合并时未登录服务器核实现状；日期、版本和配置均须按本次任务复核。文中修复步骤不构成自动升级、改配置或重启授权。
+
 # 代理与搜索引擎
 
 ## 背景
@@ -18,13 +20,13 @@ GA 的 Chrome（带 `--proxy-server=http://127.0.0.1:7890`）访问 Google 搜�
 ### 根因
 出口 IP 是机房 IP（如德国 netcup `46.38.243.197`），Google 会拉黑机房 IP 段。**换节点不能可靠解决**——即使换到日本软银住宅 IP（`45.192.200.254`），Google 搜索仍不稳。
 
-### 可靠解法：改用 Bing
+### 当时的处理：改用 Bing（现场复核后再决定）
 GA 没有独立的 `web_search` 工具，它是靠 system prompt 指示 LLM 用 Chrome 导航搜索引擎。把指示里的 Google 改成 Bing（4 处修改），重启 GA + Chrome 验证即可。Bing 对机房/代理 IP 宽容得多。
 
 ### 验证 Google 是否被拦
 ```bash
 ssh tencent 'curl -s -o /dev/null -w "%{http_code}" --max-time 10 -x http://127.0.0.1:7890 "https://www.google.com/search?q=test"'
-# 200 = 正常，302 + Location 含 /sorry/ = 被拉黑
+# 需读取Location并检查页面内容；HTTP 200不证明搜索可用，302本身也不能证明被封锁。
 ```
 
 ### 切换 mihomo 节点
