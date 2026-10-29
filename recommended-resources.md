@@ -1,15 +1,78 @@
-# 优秀 Skill 收藏
+# 推荐资源目录
 
-记录值得收藏的外部（非自制）Skill / Skill 合集：来源、基础介绍、安装方式、适用平台与使用备注。新增条目时在索引表加一行，并按下文模板补充详情。
+记录值得收藏的外部（非自制）Skill / Skill 合集，以及可配合技能使用的插件与工具项目：来源、基础介绍、安装方式、适用平台与使用备注。新增条目时在索引表加一行，并按下文模板补充详情；类型列注明项目实际形态。
 
 ---
 
 ## 索引
 
-| 名称 | 来源 | 类型 | 适用平台 | 一句话简介 |
-| --- | --- | --- | --- | --- |
-| duckdb-skills | [duckdb/duckdb-skills](https://github.com/duckdb/duckdb-skills) | Claude Code 插件（含 6 个 skill） | macOS / Linux（Windows 暂不完整支持） | DuckDB 官方出品，把本地/远程数据文件直接变成可 SQL 探索的数据库 |
-| dsh-workbuddy-connect | [corrinehu/dsh-workbuddy-connect](https://github.com/corrinehu/dsh-workbuddy-connect) | DSH provider 插件（npm 包） | macOS / Windows（Web / Desktop / TUI profile） | 把已登录的 WorkBuddy 桌面 App 模型接入 DeepSeek Harness，国内版与国际版两套分组、账号、积分互不混用 |
+| 分类 | 名称 | 来源 | 类型 | 适用平台 | 一句话简介 |
+| --- | --- | --- | --- | --- | --- |
+| 技能 | duckdb-skills | [duckdb/duckdb-skills](https://github.com/duckdb/duckdb-skills) | Claude Code 插件（含 6 个 skill） | macOS / Linux（Windows 暂不完整支持） | DuckDB 官方出品，把本地/远程数据文件直接变成可 SQL 探索的数据库 |
+| 插件 | dsh-workbuddy-connect | [corrinehu/dsh-workbuddy-connect](https://github.com/corrinehu/dsh-workbuddy-connect) | DSH provider 插件（npm 包） | macOS / Windows（Web / Desktop / TUI profile） | 把已登录的 WorkBuddy 桌面 App 模型接入 DeepSeek Harness，国内版与国际版两套分组、账号、积分互不混用 |
+| 开发库 | Anime.js | [juliangarnier/anime](https://github.com/juliangarnier/anime) | 前端动画库（非 Skill） | 浏览器；可用于原生 JavaScript / React 等前端项目 | 用时间线、错峰、滚动联动、SVG、文字和拖拽动画制作个人展示、物流流程及交互演示页面 |
+
+---
+
+## Anime.js
+
+- **地址**：[juliangarnier/anime](https://github.com/juliangarnier/anime)
+- **官网 / 文档**：[animejs.com](https://animejs.com/) / [官方文档](https://animejs.com/documentation/)
+- **作者/维护方**：Julian Garnier
+- **协议**：MIT
+- **形态**：JavaScript 动画库，npm 包名为 `animejs`；作为页面开发依赖使用，不是可直接安装到 Agent 技能目录的 Skill。
+
+### 基础介绍
+
+Anime.js 可对 CSS 属性、SVG、DOM 属性和 JavaScript 对象进行动画控制。适合在需要协调多个元素的运动顺序、重叠关系和交互进度时使用，例如个人作品集、物流员工展示、运输流程讲解和数据故事页面。
+
+### 核心能力与适用场景
+
+| 能力 | 用途 |
+| --- | --- |
+| Animation / Timeline | 控制位移、旋转、缩放等属性，按时间线编排多个动画 |
+| Stagger | 让文字、列表、网格或运输节点错峰出现 |
+| Events / onScroll | 随滚动触发动画或同步动画进度 |
+| SVG | 路线描边、形状变换、物体沿路径移动 |
+| Text | 文字拆分与乱码还原效果 |
+| Draggable / Easings | 拖拽交互、缓动与弹簧效果 |
+| Scope | 管理动画作用域及清理，便于整合组件生命周期 |
+| WAAPI / Adapters | 按场景使用 Web Animations API，或通过适配器扩展动画目标 |
+
+能力入口及具体 API 以[官方文档](https://animejs.com/documentation/)为准。
+
+### 安装方式
+
+在目标前端项目目录执行：
+
+```sh
+npm install animejs
+```
+
+v4 基础用法（页面已有 `.item` 元素）：
+
+```js
+import { animate, stagger } from 'animejs';
+
+animate('.item', {
+  y: { from: 24, to: 0 },
+  opacity: { from: 0, to: 1 },
+  duration: 800,
+  delay: stagger(100),
+  ease: 'outQuint',
+});
+```
+
+### 适用平台与注意事项
+
+- 页面动效面向浏览器；可整合原生 JavaScript、React 等前端项目。React 接入参考[官方示例](https://animejs.com/documentation/getting-started/using-with-react/)，使用作用域并在组件卸载时清理动画。
+- v3 与 v4 API 有差异，使用教程前先核对项目依赖版本；升级时查看[发布记录](https://github.com/juliangarnier/anime/releases)，不要默认小版本更新完全兼容。
+- 简单悬停或淡入可直接使用 CSS；复杂时序、路径运动、拖拽和滚动叙事更适合使用此库。按展示目标选择能力，避免为了展示 API 堆叠动效。
+- 页面应考虑移动端、键盘操作和减少动态效果偏好；持续循环动画应提供合适的暂停或降级方式。
+
+### 备注
+
+物流员工个人展示页可组合：首屏文字错峰入场、履历滚动时间线、航线 SVG 描边及沿路径运动、示例业绩数字过渡、可拖拽的运输节点。人物与业绩为演示资料时应明确标注。
 
 ---
 

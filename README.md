@@ -65,9 +65,9 @@ description: "一句话说明触发场景与用途，并列出触发词。例如
 
 腾讯云技能已统一更名为 `tencent-cloud-server-ops`。已安装旧版 `tencent-server-ops` 的机器，请改用新目录，并停用或移除旧入口，避免重复触发。服务器已于 2026-10-27 由用户确认不再运行 OpenClaw；该技能中的 OpenClaw 附录仅供旧日志、备份和迁移历史分析。
 
-## 外部优秀 Skill 收藏
+## 推荐资源目录
 
-不收入库的外部好 Skill（他人维护），记录在 [good-skills.md](good-skills.md)：基础介绍、地址、安装方式、适用平台等。
+不收入库的外部好 Skill 及配套插件、工具项目（他人维护），记录在 [recommended-resources.md](recommended-resources.md)：按技能、插件、开发库等分类，包含基础介绍、地址、安装方式、适用平台等；条目注明实际类型，例如 Anime.js 为前端动画库。
 
 ## 新增一个技能
 
