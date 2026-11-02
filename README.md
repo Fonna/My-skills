@@ -62,6 +62,7 @@ description: "一句话说明触发场景与用途，并列出触发词。例如
 | `medium-fetch` | Medium 文章抓取 | 绕过 Cloudflare 抓取 Medium 系文章正文（medium.com / towardsai.net 等）：按 freedium 镜像回退链取回纯文本 / Markdown / HTML，含标题与失败原因诊断；附可选的零依赖 MCP server 变体 |
 | [ima-mcp](ima-mcp/README.md) | ima 官方 MCP 接入 Codex | Windows 安装、授权、诊断与 stdio 适配；首次或续期通过 WorkBuddy 取得授权并以 DPAPI 加密缓存，日常使用可关闭 WorkBuddy；支持知识库检索、读取及按需入库 |
 | [ima-duo-mcp](ima-duo-mcp/README.md) | ima-duo 的 Codex 移动扩展 | 基于 zeriehan/ima-duo 接口契约改写为独立 MCP；查库、列资料和同库移动，Windows 加密授权，无需 Obsidian 或 WorkBuddy；附来源与改动说明、[双 MCP 能力图谱](ima-duo-mcp/CAPABILITIES.md) |
+| [yuanbao-search](yuanbao-search/SKILL.md) | 元宝搜索 | 腾讯云 SearchPro 通用网页检索，支持站点与时效筛选；TC3 签名、环境变量凭证、来源留存与离线测试 |
 
 > 新增技能后，请在此表格补一行。
 

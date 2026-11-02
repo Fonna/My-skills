@@ -1,0 +1,4 @@
+interface:
+  display_name: "元宝搜索"
+  short_description: "通过腾讯云 SearchPro 检索公开网页，支持站点与时效筛选并保留来源"
+  default_prompt: "使用 $yuanbao-search 检索这个主题，核对原始来源后给出带链接的结果。"
