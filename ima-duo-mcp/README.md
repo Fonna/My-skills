@@ -4,6 +4,8 @@
 
 上游版本、参考提交、保留接口和全部适配范围见 [UPSTREAM.md](UPSTREAM.md)，许可证见 [LICENSE](LICENSE)。
 
+两个 MCP 的关系、12 个工具入口、功能重叠、组合流程与验证边界，见 [完整能力图谱与配合使用](CAPABILITIES.md)。
+
 ## 当前能力
 
 | MCP 工具 | 用途 |

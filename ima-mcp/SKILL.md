@@ -5,6 +5,8 @@ description: 通过 ima 官方 MCP 检索、读取个人账号可访问的知识
 
 # ima MCP
 
+资料检索、读取及入库使用本服务；同库移动可交给另行安装和授权的 `ima_duo`。两包均已安装且任务涉及组合使用时，读取 [能力图谱与协作规则](../ima-duo-mcp/CAPABILITIES.md)，分别查询并核对条目身份，不直接混用 ID；未安装 duo 时说明缺少移动工具，不暗示本服务支持移动。
+
 通过本地 stdio 适配器连接 `https://ima.qq.com/mcp`。首次授权或续期需要**同一台电脑上正在运行、已登录且已连接 ima 的 WorkBuddy**。专用 MCP 令牌使用 Windows DPAPI 加密保存，之后可关闭 WorkBuddy。每台电脑分别授权，不复制令牌。
 
 ## 接入与诊断

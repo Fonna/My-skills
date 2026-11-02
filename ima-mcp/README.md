@@ -2,6 +2,8 @@
 
 连接 ima 官方 MCP `https://ima.qq.com/mcp`，通过自然语言检索知识库、读取原文，并按需导入网页和文件。Node.js 零 npm 依赖。
 
+需要同库移动资料时，可配合独立的 `ima_duo` 扩展。两者关系、授权区别、工具分工与组合流程见 [完整能力图谱](../ima-duo-mcp/CAPABILITIES.md)；两包分别安装和授权，不自动转换 ID。
+
 **首次授权或重新获取令牌需要 WorkBuddy；授权缓存成功后，使用过程中可以关闭 WorkBuddy。** 运行时 Codex 直接访问 ima MCP，不经过 WorkBuddy 转发业务请求，也不使用 ima Skill/OpenAPI。
 
 ```text

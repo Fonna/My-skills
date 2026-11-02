@@ -7,6 +7,8 @@ description: 为 Codex 补充 ima 知识库内资料移动能力，移植自 ima
 
 本包是 ima-duo 移动接口的独立适配，不是 Obsidian 插件，也不是 ima 官方 MCP。代码来源、改动和许可证见 [UPSTREAM.md](UPSTREAM.md) 与 [LICENSE](LICENSE)；在其他 Windows 电脑安装和配置时读取 [README.md](README.md)。
 
+与官方 `ima` 配合时，按 [能力图谱与协作规则](CAPABILITIES.md) 分工：官方侧检索、读取和入库，本服务完成同库移动；跨服务分别查询并核对条目身份、账号及权限，没有自动 ID 转换。直接移动不依赖官方服务。
+
 先用本服务的 `list_knowledge_bases` 和 `list_knowledge` 获取 OpenAPI 的真实知识库、资料和文件夹 ID，不混用官方 MCP 返回的 ID，不按名称猜测 ID 对应关系。列表按游标分页，单页不是全量。
 
 `move_knowledge` 仅在同一知识库内移动资料；不支持移动文件夹，不提供删除。目标根目录必须显式传 `destination_folder_id: ""`。只有用户明确要求并确定资料和目标时才移动；安装、授权不代表允许测试移动。检查逐项 `outcomes`；部分失败不能报告整批成功。网络超时不自动重试，先核实实际位置。
