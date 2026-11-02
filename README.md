@@ -61,6 +61,7 @@ description: "一句话说明触发场景与用途，并列出触发词。例如
 | `agnes-image` | Agnes AI 图片生成 | 通过 Agnes AI 网关（`apihub.agnes-ai.com/v1`，OpenAI 兼容）调用 `agnes-image-2.5-flash` 生图：文生图 / 图生图 / 多图合成，产物自动下载到本地；当前限免 `$0/张`。需环境变量 `AGNES_API_KEY`（勿与 `ARK_API_KEY` 混用，Key 禁止贴进对话） |
 | `medium-fetch` | Medium 文章抓取 | 绕过 Cloudflare 抓取 Medium 系文章正文（medium.com / towardsai.net 等）：按 freedium 镜像回退链取回纯文本 / Markdown / HTML，含标题与失败原因诊断；附可选的零依赖 MCP server 变体 |
 | [ima-mcp](ima-mcp/README.md) | ima 官方 MCP 接入 Codex | Windows 安装、授权、诊断与 stdio 适配；首次或续期通过 WorkBuddy 取得授权并以 DPAPI 加密缓存，日常使用可关闭 WorkBuddy；支持知识库检索、读取及按需入库 |
+| [ima-duo-mcp](ima-duo-mcp/README.md) | ima-duo 的 Codex 移动扩展 | 基于 zeriehan/ima-duo 接口契约改写为独立 MCP；查库、列资料和同库移动，Windows 加密授权，无需 Obsidian 或 WorkBuddy；附来源与改动说明 |
 
 > 新增技能后，请在此表格补一行。
 
