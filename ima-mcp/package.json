@@ -1,0 +1,12 @@
+{
+  "name": "ima-mcp-workbuddy-bridge",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Codex stdio bridge to official IMA MCP using local WorkBuddy authorization",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "doctor": "node scripts/doctor.mjs"
+  }
+}
