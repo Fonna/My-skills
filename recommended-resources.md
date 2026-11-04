@@ -10,6 +10,7 @@
 | --- | --- | --- | --- | --- | --- |
 | 技能 | duckdb-skills | [duckdb/duckdb-skills](https://github.com/duckdb/duckdb-skills) | Claude Code 插件（含 6 个 skill） | macOS / Linux（Windows 暂不完整支持） | DuckDB 官方出品，把本地/远程数据文件直接变成可 SQL 探索的数据库 |
 | 插件 | dsh-workbuddy-connect | [corrinehu/dsh-workbuddy-connect](https://github.com/corrinehu/dsh-workbuddy-connect) | DSH provider 插件（npm 包） | macOS / Windows（Web / Desktop / TUI profile） | 把已登录的 WorkBuddy 桌面 App 模型接入 DeepSeek Harness，国内版与国际版两套分组、账号、积分互不混用 |
+| 插件 | text-to-cad | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | CAD 插件（含 Skills、本地建模服务与查看器） | Windows / macOS / Linux，支持 Codex、Claude Code 等 | 用自然语言生成和修改参数化 CAD 零件，支持预览和导出 STEP、STL、3MF、GLB |
 | 开发库 | Anime.js | [juliangarnier/anime](https://github.com/juliangarnier/anime) | 前端动画库（非 Skill） | 浏览器；可用于原生 JavaScript / React 等前端项目 | 用时间线、错峰、滚动联动、SVG、文字和拖拽动画制作个人展示、物流流程及交互演示页面 |
 
 ---
@@ -200,3 +201,45 @@ dsh plugin --profile dsh-tui add dsh-workbuddy-connect@0.6.5
 - 社区有修复 reasoning-effort 的衍生 fork：`@jojoman2024/dsh-workbuddy-connect-patched`（修复上游 `11128` channel-check 错误、hy3 推理不生效问题，并按模型暴露思考档位），同样复用本地登录态，同样受上述同机与平台限制。
 - 本机（腾讯云 Linux 服务器）DSH Web profile 已装 `0.7.4` 且版本与内核 `0.2.0-rc.2` 匹配，但服务器无 WorkBuddy 桌面 App，模型分组不会出现——属预期，不影响现有运行。
 - （待补：实际使用感受、与自有工作流的结合点等）
+
+---
+
+## text-to-cad
+
+- **地址** [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad)
+- **官网 / 文档** [texttocad.dev](https://www.texttocad.dev/) / [官方安装说明](https://github.com/earthtojake/text-to-cad/blob/main/docs/install.md)
+- **作者/维护方** earthtojake
+- **协议** MIT
+- **形态** 面向编程助手的 CAD 插件，包含建模 Skills、本地 MCP 服务和 CAD 查看器。
+
+### 基础介绍
+
+用自然语言描述零件或装配体，助手用 Python 和 build123d 生成可重复运行的建模脚本，再在本地构建并预览。后续可以修改脚本里的尺寸或几何特征，再生成新版本。
+
+### 核心能力与适用场景
+
+| 能力 | 用途 |
+| --- | --- |
+| 参数化建模与预览 | 创建和修改支架、安装板等机械零件，也可组合成装配体 |
+| 文件导出 | 导出 STEP 供其他 CAD 软件打开，导出 STL 或 3MF 供切片，导出 GLB 用于三维展示 |
+| 工程图和制造检查 | 生成带尺寸的 PDF 工程图和 2D DXF，也可检查 CNC、钣金或 3D 打印的制造约束 |
+
+### 安装方式
+
+使用支持 `codex plugin add` 的 Codex 版本，先确保系统已安装 `uv`。只给 Codex 安装时，可按项目官方说明添加发布分支和插件。
+
+```sh
+codex plugin marketplace add earthtojake/text-to-cad --ref latest
+codex plugin add text-to-cad@earthtojake
+```
+
+安装后重启 Codex。Claude Code、Cursor 等客户端的安装步骤见[官方安装说明](https://github.com/earthtojake/text-to-cad/blob/main/docs/install.md#app-by-app)。
+
+### 适用平台与注意事项
+
+- 支持 Windows、macOS 和 Linux。首次启动需要联网下载 Python 运行环境和 CAD 内核，之后在本地构建与预览。
+- Windows 上如果系统的 `codex` 命令没有 `plugin add`，可使用 Codex 桌面版随附的新版程序。
+
+### 备注
+
+2026-11-04 在 Windows 的 Codex 桌面版实测 `0.10.3`，成功生成并预览一块 80 × 40 × 6 mm 的四孔底板，验证了 STEP 导出。
