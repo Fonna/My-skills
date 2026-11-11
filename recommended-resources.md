@@ -9,9 +9,79 @@
 | 分类 | 名称 | 来源 | 类型 | 适用平台 | 一句话简介 |
 | --- | --- | --- | --- | --- | --- |
 | 技能 | duckdb-skills | [duckdb/duckdb-skills](https://github.com/duckdb/duckdb-skills) | Claude Code 插件（含 6 个 skill） | macOS / Linux（Windows 暂不完整支持） | DuckDB 官方出品，把本地/远程数据文件直接变成可 SQL 探索的数据库 |
+| 技能 / 插件 | Baoyu Design（宝玉设计） | [JimLiu/baoyu-design](https://github.com/JimLiu/baoyu-design) | Agent 技能集 + 本地编辑器，可通过插件接入 | 本地文件型 Agent（Cursor / Claude Code / Codex 等）、DeepSeek Harness；需 Node.js | 用 AI 生成并可视化修改幻灯片、UI 原型、设计系统、数据仪表盘、动画和白板；混合许可，非全仓 MIT |
 | 插件 | dsh-workbuddy-connect | [corrinehu/dsh-workbuddy-connect](https://github.com/corrinehu/dsh-workbuddy-connect) | DSH provider 插件（npm 包） | macOS / Windows（Web / Desktop / TUI profile） | 把已登录的 WorkBuddy 桌面 App 模型接入 DeepSeek Harness，国内版与国际版两套分组、账号、积分互不混用 |
 | 插件 | text-to-cad | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | CAD 插件（含 Skills、本地建模服务与查看器） | Windows / macOS / Linux，支持 Codex、Claude Code 等 | 用自然语言生成和修改参数化 CAD 零件，支持预览和导出 STEP、STL、3MF、GLB |
 | 开发库 | Anime.js | [juliangarnier/anime](https://github.com/juliangarnier/anime) | 前端动画库（非 Skill） | 浏览器；可用于原生 JavaScript / React 等前端项目 | 用时间线、错峰、滚动联动、SVG、文字和拖拽动画制作个人展示、物流流程及交互演示页面 |
+
+---
+
+## Baoyu Design（宝玉设计）
+
+- **地址**：[JimLiu/baoyu-design](https://github.com/JimLiu/baoyu-design)
+- **作者/维护方**：Jim Liu（宝玉）；独立社区项目，与 Anthropic 无隶属或背书关系。
+- **协议**：混合许可；维护者自有代码为 MIT，来自 Anthropic 的部分不适用 MIT，第三方依赖各按原许可，见下文。
+- **形态**：Agent 技能集、预构建的本地编辑器及运行脚本；另提供 DeepSeek Harness 和 ChatGPT / Codex 插件封装。
+- **核查记录**：2026-11-11，最新正式版本为 [v2.13.0](https://github.com/JimLiu/baoyu-design/releases/tag/v2.13.0)，新增白板；版本可能继续更新，安装前查看[发布记录](https://github.com/JimLiu/baoyu-design/releases)。本条为文档调研，尚未安装实测。
+
+### 基础介绍
+
+把 Claude Design / claude.ai Artifact 的内容制作流程搬到本地 Agent：描述需求后，由 Agent 写入项目文件并打开对应编辑器；用户可在界面中改文字、拖动元素或标注评论，再交给 Agent 继续修改。产物、评论和历史保存在本地项目文件夹，便于备份和交接。
+
+早期同名的单个 `baoyu-design` 技能（生成自包含 HTML 的 UI 稿和原型）已归档到 `archive/baoyu-design/`；当前主线是下列按产物类型拆分的技能，不应照旧教程默认安装归档版本。
+
+来源：[中文 README](https://github.com/JimLiu/baoyu-design/blob/main/README.zh-CN.md)。
+
+### 核心能力与适用场景
+
+| 技能 | 功能特点 | 适用场景 |
+| --- | --- | --- |
+| `claude-slides` | 可编辑幻灯片，支持改字、拖动、放映，导出 PDF / HTML / PowerPoint；底层为 `project/deck.json` 和每页 HTML | 业务汇报、经营复盘、方案演示 |
+| `claude-design` | 多画板设计画布、交互原型、文案与样式调整；导出 HTML / PDF / PNG / HTML for Figma | 落地页、移动端界面、产品原型 |
+| `claude-design-system` | 管理颜色、字体、间距、组件、素材和品牌手册，并供其他设计使用 | 统一报告和产品的视觉规范 |
+| `claude-dashboard` | 基于 CSV / TSV / JSON 的图表、指标、表格与筛选；Sources 面板追溯数据行，更换数据文件后重新计算 | 导出数据分析、KPI 展示、周期报告 |
+| `claude-motion` | 用代码逐场制作动画，可调整台词、场景时长和样式，导出 MP4 / GIF | 产品介绍、流程讲解、数据故事短片 |
+| `motion-director` | 确定影片主题、编写旁白、编排配音和场景；需配合 `claude-motion` | 从业务材料制作叙事影片 |
+| `claude-whiteboard` | 可拖动的图形、箭头、便签、表格和手绘；支持评论、共享及版本历史 | 流程梳理、头脑风暴、计划与方案对比 |
+| `dataviz` | 图表选型、配色、图例和提示框指南，附配色校验工具，无独立编辑器 | 改善 HTML / SVG / Python 等载体里的图表表达 |
+
+功能来源：[技能总览](https://github.com/JimLiu/baoyu-design/blob/main/README.zh-CN.md#仓库里的技能)、[仪表盘契约](https://github.com/JimLiu/baoyu-design/blob/main/skills/claude-dashboard/SKILL.md)、[幻灯片契约](https://github.com/JimLiu/baoyu-design/blob/main/skills/claude-slides/SKILL.md)。
+
+### 安装方式与前置条件
+
+需要可读写本地文件的 Agent、浏览器及 Node.js。幻灯片、画布和设计系统要求 Node 20+；仪表盘、Motion 和白板要求 Node 22+。编辑器脚本已预构建，通常无需安装项目依赖或自行构建；额外导出工具见下文。
+
+通用技能安装方式（在目标项目中执行；仅安装需要的模块）：
+
+```sh
+# 先列出技能，不执行安装
+npx skills add JimLiu/baoyu-design --list
+
+# 安装到当前项目：幻灯片和仪表盘
+npx skills add JimLiu/baoyu-design --skill claude-slides --skill claude-dashboard
+```
+
+安装其他模块时替换 `--skill` 参数；需要全局安装才加 `-g`。安装完成后新开 Agent 会话，让技能重新加载，再明确点名需要的技能。
+
+DeepSeek Harness 桌面版可在 Plugins → Add plugin 按需安装 `dsh-claude-slides`、`dsh-claude-design`、`dsh-claude-design-system`、`dsh-claude-dashboard`、`dsh-claude-motion` 或 `dsh-claude-whiteboard`。Motion 的导演流程还需确保加载 `motion-director`。其他封装方式按[插件安装说明](https://github.com/JimLiu/baoyu-design/blob/main/chatgpt-plugins/README.md)操作；通用安装和 DSH 路径见[项目 README](https://github.com/JimLiu/baoyu-design/blob/main/README.zh-CN.md)。
+
+### 使用时要注意
+
+1. **许可不是全仓 MIT。** [NOTICE.md](https://github.com/JimLiu/baoyu-design/blob/main/NOTICE.md)明确：本地工具及维护者自有代码适用 MIT；取自 Anthropic 的技能说明、参考资料、还原编辑器、`dataviz`、图标字体和归档提示词等不适用 MIT，项目不为这些材料授予许可；归档的 `frontend-design` 技能适用 Apache 2.0，第三方库各按原许可。需要二次分发、打包进产品或商用集成时，应逐项核对授权，不能只看根目录 MIT 文件。
+2. **本地编辑器不等于离线模型。** 文件存放本机，但 Agent 是否把内容发送到云端，由所用模型和配置决定；处理公司数据前要核对该配置。项目无额外设计网站订阅要求，也不代表模型调用、生图或配音免费。
+3. **模型与设计上下文影响效果。** 上游推荐强模型；提供参考截图、品牌规范、真实代码和清晰的受众、尺寸、导出目标，再生成初稿。不能把示例效果当作所有模型上的质量保证。
+4. **编辑器需要本机网络。** 通过 `localhost` / `127.0.0.1` 本地服务器打开，运行环境须允许本地网络访问；写文件和校验能成功，不代表编辑器已能打开。Windows 使用 PowerShell 时采用对应命令语法，不直接照抄 POSIX shell 写法。
+5. **评论反馈需要 Agent 在接收。** 评论会保存到本地 `comments.json`；通用技能通过 `comments <root> --wait` 等待时才显示 Send to Agent。没有该入口时可让 Agent 等待评论，或明确要求它读取已保存评论，不能默认标注后就会自动处理。DSH 插件提供自动接收集成。
+6. **局域网分享有范围和角色。** `share` / `open --lan` 提供 editor、commenter、viewer 链接，使用明文 HTTP，拿到相应链接的人即可加入；不适合作为公网访问或公司身份权限系统。版本历史有助于恢复修改，但仍应备份；整体 ZIP 可包含评论和历史，交接前核对内容。
+7. **导出后仍要验收。** 逐页检查字体、图标、布局和交互；支持 PPTX 不代表所有效果都能原样迁移。HTML for Figma 是供 Chrome 扩展捕捉的页面，不是原生 `.fig` 文件。Motion 导出需要 Chrome，录制产品页面的 `record` 还需要 ffmpeg，配音需自有语音服务或录音；本地白板不提供 claude.ai 的 Ask、光标聊天、朗读和听写助手。
+8. **数据来源追溯不代替业务治理。** Dashboard 支持追溯文件数据行，但不能由此认定它具备企业 BI 的权限、指标治理或生产数据库接入能力。实际应用仍要核对数据范围、日期、单位、公式及更新方式。
+9. **按版本维护，避免同名技能覆盖。** 保留工作中的产物副本再升级，并核对上游变更。DSH 工作区 `.agents/skills/` 或 `.dsh/skills/` 中的同名技能会优先于插件自带版本，排查时需确认实际加载来源。
+
+上述运行、协作和导出规则以[中文 README](https://github.com/JimLiu/baoyu-design/blob/main/README.zh-CN.md)、[发布记录](https://github.com/JimLiu/baoyu-design/releases)和各模块的 `SKILL.md` 为准；隐私、质量、导出验收及 BI 边界为据此整理的使用建议。
+
+### 备注
+
+优先试用方向：业务数据 CSV → `claude-dashboard`，经营复盘 → `claude-slides`，物流流程或方案梳理 → `claude-whiteboard`。先用非敏感的小样本验证生成、人工修改、评论反馈和目标格式导出，再决定是否用于正式工作。本目录仅登记推荐项目；本次未安装项目或导入第三方技能。
 
 ---
 
