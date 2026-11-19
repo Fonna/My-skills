@@ -10,6 +10,9 @@
 | --- | --- | --- | --- | --- | --- |
 | 技能 | duckdb-skills | [duckdb/duckdb-skills](https://github.com/duckdb/duckdb-skills) | Claude Code 插件（含 6 个 skill） | macOS / Linux（Windows 暂不完整支持） | DuckDB 官方出品，把本地/远程数据文件直接变成可 SQL 探索的数据库 |
 | 技能 / 插件 | Baoyu Design（宝玉设计） | [JimLiu/baoyu-design](https://github.com/JimLiu/baoyu-design) | Agent 技能集 + 本地编辑器，可通过插件接入 | 本地文件型 Agent（Cursor / Claude Code / Codex 等）、DeepSeek Harness；需 Node.js | 用 AI 生成并可视化修改幻灯片、UI 原型、设计系统、数据仪表盘、动画和白板；混合许可，非全仓 MIT |
+| 技能 / 工具 | Impeccable | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | 设计 Skill + 命令集 + 确定性检测引擎，另有浏览器扩展 | Codex、Claude Code、Cursor 等；Windows / macOS / Linux，安装与引擎按平台提供 | 从方案梳理到设计评审、局部修改与质量检查；适合外行逐步参与设计，以及后台、仪表盘等任务型界面 |
+| 技能 | Hallmark | [Nutlope/hallmark](https://github.com/Nutlope/hallmark) | 前端设计 Skill + 主题资料 + 静态 / 浏览器检查脚本 | Codex、Claude Code、Cursor、OpenCode；Node 18+ | 按页面用途组织内容，以 50 套主题或自定义方向设计新页面，并审查、改造已有界面 |
+| 技能 | Taste Skill | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) | 前端设计 Skill + 页面素材与动效 + 浏览器检查脚本 | Codex、Claude Code、Cursor 等；Node 22+，Chrome / Edge / Chromium | 用统一页面系统、首屏布局和素材制作公司 / 产品官网，视觉规范较强，不宜直接套用信息密集后台 |
 | 插件 | dsh-workbuddy-connect | [corrinehu/dsh-workbuddy-connect](https://github.com/corrinehu/dsh-workbuddy-connect) | DSH provider 插件（npm 包） | macOS / Windows（Web / Desktop / TUI profile） | 把已登录的 WorkBuddy 桌面 App 模型接入 DeepSeek Harness，国内版与国际版两套分组、账号、积分互不混用 |
 | 插件 | text-to-cad | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | CAD 插件（含 Skills、本地建模服务与查看器） | Windows / macOS / Linux，支持 Codex、Claude Code 等 | 用自然语言生成和修改参数化 CAD 零件，支持预览和导出 STEP、STL、3MF、GLB |
 | 开发库 | Anime.js | [juliangarnier/anime](https://github.com/juliangarnier/anime) | 前端动画库（非 Skill） | 浏览器；可用于原生 JavaScript / React 等前端项目 | 用时间线、错峰、滚动联动、SVG、文字和拖拽动画制作个人展示、物流流程及交互演示页面 |
@@ -82,6 +85,177 @@ DeepSeek Harness 桌面版可在 Plugins → Add plugin 按需安装 `dsh-claude
 ### 备注
 
 优先试用方向：业务数据 CSV → `claude-dashboard`，经营复盘 → `claude-slides`，物流流程或方案梳理 → `claude-whiteboard`。先用非敏感的小样本验证生成、人工修改、评论反馈和目标格式导出，再决定是否用于正式工作。本目录仅登记推荐项目；本次未安装项目或导入第三方技能。
+
+---
+
+## Impeccable
+
+- **地址**：[pbakaus/impeccable](https://github.com/pbakaus/impeccable)
+- **官网 / 文档**：[impeccable.style](https://impeccable.style/) / [官方文档](https://impeccable.style/docs/)
+- **作者 / 维护方**：Paul Bakaus（pbakaus）。
+- **协议**：Apache-2.0；二次分发时核对 LICENSE、NOTICE 及第三方组件许可。
+- **形态**：面向编程 Agent 的设计技能与命令集，配有确定性反模式检测引擎、CLI、编辑 hook，以及浏览器扩展与 Live Mode；不是独立 BI 平台或无代码数据应用。
+- **核查记录**：2026-11-19，仓库声明版本 4.10.0。已阅读 README、技能正文、Operate、shape、critique 等说明；本条为文档与规则调研，未安装或运行页面实测。
+
+### 基础介绍
+
+把设计工作拆成可以逐步指定的动作：先澄清用途和约束，再形成方案、实现、评审和打磨。`init` 将产品背景记录到 `PRODUCT.md`，`document` 将已有视觉系统记录到 `DESIGN.md`，后续工作复用这些上下文。用户不需要先给出完整规格或 CSS 参数，可以从使用者、问题和最终目的开始讨论。
+
+项目按页面用途区分 Persuade（说服与转化）、Operate（完成任务）、Read（理解内容）、Experience（体验作品）。同一产品的官网与后台可以采用不同模式；客户价值、经营分析、管理后台等优先考虑 Operate，强调可扫描性、熟悉的操作、一致性和必要的信息密度，不把官网式整屏展示套到工作台上。
+
+### 擅长与适用场景
+
+| 擅长的部分 | 对应能力 | 适用场景与选择理由 |
+| --- | --- | --- |
+| 从模糊目的形成可实施方案 | `shape` 讨论使用者、任务、内容、状态与边界，形成设计简报后停止，不写代码 | 知道“想帮助负责人判断客户价值”，但尚未确定信息层级、布局与操作路径；适合设计外行参与决策 |
+| 解释已有页面为什么不好用 | `critique` 是设计评审，给出理由、优先级和需要保留的优点，本身不修改页面 | 初稿显得混乱、不知从何改起，或需要先判断问题再决定是否重设计 |
+| 优化任务型界面 | Operate 模式覆盖表格、筛选、导航、组件状态、响应式结构和克制动效 | 客户价值页面、经营看板、管理后台、工具、设置、表单，优先任务效率与一致性 |
+| 有针对性的局部迭代 | `layout` 调整布局，`typeset` 调整文字层级，`distill` 减少复杂度，`clarify` 改善界面文案，`polish` 做最后打磨 | 已有可用页面，希望指出具体范围逐步改善，而非每次推翻整页 |
+| 检查实现质量与异常状态 | `audit` 检查无障碍、性能、响应式等；`harden` 处理错误、国际化和边界情况；`adapt` 适配设备 | 初稿能看但尚不适合交付，需要补充加载、空数据、长文本、错误反馈及移动端行为 |
+| 在浏览器里比较方案 | Live Mode 选择元素并生成多个变体，比较后接受或丢弃，接受的结果写回源码 | 难用语言指定间距与层级，希望看几个实际方案再作选择；该模式仍为 beta |
+| 分离机械检测与设计判断 | CLI / hook 提供确定性规则检查，模型负责更广泛的设计与可用性评审 | 在人工评审之外增加重复执行的检查，也可通过 JSON、GitHub 注释或 SARIF 集成到工程流程 |
+
+### 不擅长与使用边界
+
+- **不替代业务指标与数据治理。** 可以协助梳理业务问题，但客户价值公式、客户主体、数据粒度、收入毛利口径、日期、单位、权限与生产接口必须独立核实。设计评审不能证明 SQL 或统计结论正确，也不能把模拟数字当作真实经营事实。
+- **设计评分不是用户验证。** `critique` 的启发式分数、模拟使用者视角和检测规则可帮助发现问题，但不等同于真实访谈、可用性测试或业务验收；应看具体理由，而非仅追求高分。
+- **检测通过不代表全面合格。** JSX / TSX 等源码扫描主要覆盖模式规则；对比度、小字等渲染问题需要扫描运行中的 URL。规则不可能覆盖全部交互、性能、无障碍或业务行为，仍须项目测试与实际操作。
+- **不是全自动无约束建站。** `shape` 刻意停在方案确认阶段；新建页面和重设计需要真实内容、素材及约束。项目自述最擅长已有界面的迭代，新页面也能做，但不能仅凭工具名称假定一次生成即满足业务。
+- **不是专门的数据可视化与分析引擎。** 适合改善指标、表格、筛选和详情的呈现；图表类型、聚合公式、多事实表关联及数据更新机制还需数据分析与可视化方案配合，不能代替 BI 数据层。
+- **保留品牌与现有逻辑仍需验收。** 使用 `PRODUCT.md`、`DESIGN.md` 和明确范围约束修改；不要把一次局部打磨扩展成全站重设计。模拟评审与浏览器预览不能保证后端、权限和状态转换不受影响。
+- **Live Mode 有运行条件与执行边界。** 需要可运行的本地页面或开发服务器，仍为 beta，不适合直接注入生产站点。当前 README 说明：应用暂存文案修改时，如无活跃聊天 Agent 轮询，可能启动本机 Codex / Claude CLI，并关闭其审批与沙箱；需要留在聊天会话中处理时，在启动前设置 `IMPECCABLE_LIVE_COPY_AGENT=chat`，或用 `off` 禁用 Apply。使用前应按实际版本复核该行为。
+- **安装、模型与素材不是同一成本。** 确定性检测不需要 LLM 或 API Key，但设计、评审和变体仍依赖宿主 Agent 的模型；生图路径取决于宿主能力。引擎首次运行可能下载二进制文件；不能将“本地项目”理解为模型与素材也完全离线。
+
+### 安装方式与前置条件
+
+安装器需要 Node.js（仓库 npm 包要求 Node 18.19+）；技能运行使用自包含引擎，安装包随附或首次下载，Windows 有对应引擎与 `.cmd` 启动入口。渲染检测需要可用浏览器；完整 Live Mode 还需本地站点可运行。
+
+在目标项目中，仅面向 Codex、仅安装到项目的示例：
+
+```sh
+npx impeccable install --providers=codex --scope=project
+```
+
+重新加载宿主后点名 `$impeccable init`；按安装器与宿主提示启用所需 hook。仅复制技能目录不会同时安装 hook；安装器接入的 hook 与单次手动扫描应分别验收。更新使用 `npx impeccable update`，更新后确认项目上下文与实际加载版本。
+
+### 客户价值页面的建议用法
+
+1. 明确销售负责人要完成的判断与动作，核实数据范围、指标定义、权限及缺失内容。
+2. 用 `init` 记录稳定背景；用 `shape` 讨论客户列表、筛选、趋势、明细及异常状态，形成方案，确认后再实现。
+3. 实现时明确采用 Operate 模式，优先沿用现有组件与设计系统；将已核实的最小、典型和最大数据范围纳入布局验证。
+4. 有初稿后用 `critique` 评审信息层级、操作路径和解释能力，按优先级选择修改。
+5. 按问题使用 `layout`、`clarify`、`distill`、`polish` 等命令；完成后用 `audit` 与运行页面检测核查质量，再做数据与功能验收。
+
+先方案、再实现、后评审是可选的分阶段工作方式，不要求每个小任务都执行全部命令。对用户而言，重点是确认“能否帮助我做判断和采取行动”，而不是先掌握配色、字体与 CSS。
+
+来源：[README](https://github.com/pbakaus/impeccable#readme)、[版本与安装器要求](https://github.com/pbakaus/impeccable/blob/main/package.json)、[技能正文](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/SKILL.md)、[Operate 规则](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/operate.md)、[shape](https://impeccable.style/docs/shape/)、[critique](https://impeccable.style/docs/critique/)、[Live Mode](https://impeccable.style/docs/live/)。擅长、不擅长及客户价值页面的流程为据此整理的选型建议，不是效果实测结论。本次仅登记推荐资源，未安装项目。
+
+---
+
+## Hallmark
+
+- **地址**：[Nutlope/hallmark](https://github.com/Nutlope/hallmark)
+- **官网**：[usehallmark.com](https://www.usehallmark.com/)
+- **作者 / 维护方**：Nutlope；项目说明由 Together AI 制作。
+- **协议**：MIT；照片保留各自的 CC0、公有领域、CC BY 或 CC BY-SA 等许可，使用时须核对具体来源与署名要求。
+- **形态**：设计 Skill、按需读取的主题与参考资料、Node 脚本；不是独立设计软件或完整业务应用。
+- **核查记录**：2026-11-19，仓库声明版本 2.0.0。已阅读 README、技能正文、改造规则和检查器部分源码；未安装技能，未做同题页面效果对比。
+
+### 基础介绍
+
+让 AI 从访客要完成的任务出发决定页面内容与结构，再选择主题或自定义视觉方向。项目提供 50 套主题；主题主要定义字体、颜色、表面与质感，不要求所有页面采用同一种章节顺序。检查规则分为必须满足的 Floor、可说明理由后豁免的 Reflex，以及精修用的 Finish。
+
+### 擅长与适用场景
+
+| 擅长的部分 | 适用场景与选择理由 |
+| --- | --- |
+| 按任务组织页面 | 预约、订阅、购买、活动、品牌介绍等新页面，避免固定套用“首屏 + 三张卡片 + 评价 + 订阅”的结构 |
+| 提供视觉方向并控制常见 AI 痕迹 | 缺少设计起点，但已有受众、目标、素材与品牌约束时，选择主题或自定义方向 |
+| 明确区分改造深度 | 完整重设计、保留布局换风格（restyle）、保留系统与布局做局部打磨（polish） |
+| 改造前后留痕与检查 | 用 `--before` 记录链接、字段等，用 `--kept` 检查是否丢失，并提供前后截图对照 |
+| 静态与多尺寸浏览器检查 | 检查设计 token、焦点、减少动态效果、首屏与溢出等问题；浏览器检查覆盖 320 至 1920 的八种宽度 |
+
+### 不擅长与使用边界
+
+- **不替代业务需求与数据口径设计。** 客户价值、经营分析等页面，仍须先确认使用者、判断任务、指标定义、粒度、日期、单位和数据权限；主题与 lint 不能保证这些内容正确。
+- **默认宣传页面规则不能整体照搬后台。** 项目支持组件与 app scope，但数据表、管理后台和复杂表单应明确采用应用场景，保留必要的信息密度、导航与操作，不强行套用首屏和低字数规则。
+- **美学规则有立场，并非通用标准。** 对眉题、字距、渐变、卡片嵌套等限制体现项目取向；已有品牌与锁定的 `design.md` 应优先，合理例外须说明。
+- **保留元素不等于功能回归通过。** 链接、字段、处理器等存在性检查不能证明接口、权限、状态转换和端到端业务行为正确，仍需项目自己的测试与实际验收。
+- **浏览器检查需要额外环境。** 无 Chrome 或 Puppeteer 时只能做静态检查，不能据此声称移动端、对比度和渲染已通过。审查涉及模型判断的部分也不等同于用户研究。
+
+### 安装方式与前置条件
+
+需要 Node 18+。只安装到当前项目且面向 Codex 的示例：
+
+```sh
+npx skills add nutlope/hallmark --agent codex
+```
+
+需要全局安装时才加 `-g`。浏览器检查另需 Chrome 及可被脚本找到的 Puppeteer；上游给出的安装方式为 `npm i -g puppeteer-core`。在支持技能加载的 Codex 会话中可点名 `$hallmark`；已有页面需明确要求 Hallmark audit 或 redesign。
+
+来源：[README](https://github.com/Nutlope/hallmark#readme)、[SKILL.md](https://github.com/Nutlope/hallmark/blob/main/skills/hallmark/SKILL.md)、[改造规则](https://github.com/Nutlope/hallmark/blob/main/skills/hallmark/references/redesign.md)、[浏览器检查器](https://github.com/Nutlope/hallmark/blob/main/skills/hallmark/scripts/sloplint-render.mjs)。擅长与不擅长的判断为据此整理的选型建议，不是效果实测结论。
+
+---
+
+## Taste Skill
+
+- **地址**：[Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)
+- **官网**：[tasteskill.dev](https://tasteskill.dev/)
+- **作者 / 维护方**：Leonxlnx。
+- **协议**：MIT；照片、品牌图标等第三方素材须另核对许可与署名要求。
+- **形态**：当前仓库主要提供一个 `design-taste-frontend` 技能，配有 HTML / CSS / JavaScript 素材及 Node 检查脚本。
+- **核查记录**：2026-11-19，仓库声明版本 2.5.1。已阅读 README、技能正文、变更记录和检查器部分源码；未安装技能，未做同题页面效果对比。
+
+### 基础介绍
+
+以统一的起始页面、设计 token、11 种首屏布局、产品 UI 片段、照片和动效，帮助 Agent 制作公司网站。先区分软件、游戏、技术硬件、普通产品、服务和场所，再选择布局与素材；shader 等效果仅用于适合的技术与游戏类场景。
+
+### 擅长与适用场景
+
+| 擅长的部分 | 适用场景与选择理由 |
+| --- | --- |
+| 素材与页面系统一并提供 | 需要较完整官网初稿，希望减少 AI 从零拼凑样式、图标、图片和 UI 示意片段 |
+| 产品与公司展示 | 软件、开发者工具、产品发布、品牌官网、工作室、酒店或咖啡馆等展示页面 |
+| 控制视觉表现的一致性 | 希望首屏、内容边缘、按钮、照片和章节节奏采用统一规则的页面 |
+| 按行业选择表现手法 | 技术类页面可选择 shader 与滚动场景；场所、普通商品与服务以照片、排版和克制动效为主 |
+| 多尺寸浏览器检查与交付迭代 | 检查遮挡、溢出、图片、对比度、点击区域、占位内容等，并记录豁免与遗留问题 |
+
+### 不擅长与使用边界
+
+- **不宜直接作为信息密集 BI 后台的默认规范。** 每章节一至两屏、首屏入场动画、图片下方无说明等强约束偏向展示网站；经营看板、客户列表、复杂表单应优先任务效率、信息密度与现有组件系统。
+- **不替代业务规划和数据建模。** 不负责决定客户价值的正式计算口径、数据关联、权限、生产接口或业务状态；必须先核实这些内容再实现界面。
+- **规范较强，未必适合已有品牌和布局。** 对设计系统、章节高度、动效及素材文件的约束较细；严格品牌或成熟应用引入前应逐项判断，而非全量套用。
+- **示意 UI 与照片不是客户事实。** 素材片段需要改写为真实产品内容；替代照片不能冒充客户的产品、场地或员工。没有素材与证据时，不能编造业绩或客户评价。
+- **交付检查结束不等于全部通过。** `gate.mjs` 默认三轮；仍有问题时可输出 `GATE: OPEN` 并结束本轮，须查看遗留 FAIL 与豁免，不能按 PASS 交付。自动检查也不能替代功能测试和实际用户验证。
+- **旧教程可能不再适用。** `high-end-visual-design` 等旧技能已迁往 `taste-skill-classics`，生图相关技能迁往 `imagegen-skills`；不要把旧版技能合集当作当前仓库内容。
+
+### 安装方式与前置条件
+
+需要 Node 22+ 及 Chrome、Edge 或 Chromium；非标准位置可设置 `CHROME_PATH`。ffmpeg 为可选项，用于部分照片转换与裁切。配套脚本本身不要求 API Key，Agent 的模型与额外生图仍依赖各自配置。
+
+只安装到当前项目且面向 Codex 的示例：
+
+```sh
+npx skills add https://github.com/Leonxlnx/taste-skill --skill design-taste-frontend --agent codex
+```
+
+需要全局安装时才加 `-g`。新开支持技能加载的会话后明确点名 `design-taste-frontend`。空目录可从静态 HTML 起步；已有 React / Vue / Svelte / Astro 等项目在其技术栈中整合；当前文档的 Next.js 新建流程采用静态导出，不能由此推断支持完整动态业务后端。
+
+来源：[README](https://github.com/Leonxlnx/taste-skill#readme)、[SKILL.md](https://github.com/Leonxlnx/taste-skill/blob/main/skills/taste-skill/SKILL.md)、[交付检查器](https://github.com/Leonxlnx/taste-skill/blob/main/skills/taste-skill/scripts/gate.mjs)、[变更记录](https://github.com/Leonxlnx/taste-skill/blob/main/CHANGELOG.md)。擅长与不擅长的判断为据此整理的选型建议，不是效果实测结论。
+
+### 三个设计项目的选择建议
+
+| 当前任务 | 选择建议 |
+| --- | --- |
+| 从最终目的梳理客户价值或经营分析页面 | 先核实业务目标、指标、权限和数据；优先试 Impeccable 的 `shape` 将需求转成界面方案，三个项目都不能代替数据口径核实 |
+| 对设计不熟，希望在讨论、评审与修改之间逐步推进 | 优先试 Impeccable；`shape` 先定方案，`critique` 先给建议，再选择局部修改命令 |
+| 新页面需要设计方向，且希望结构服从任务 | 优先试 Hallmark；已有品牌先锁定 `design.md` |
+| 公司 / 产品官网，需要完整素材、首屏布局和统一视觉表现 | 优先试 Taste Skill |
+| 已有页面需要解释问题并逐项迭代 | 优先试 Impeccable 的 `critique` / `audit` 与定向修改；Hallmark 的 audit / restyle / polish 也可按改造深度选择 |
+| 信息密集后台、表格与表单 | 优先试 Impeccable 的 Operate 模式；保留现有组件与交互系统，不套整屏官网结构 |
+| 希望搭配多个设计技能 | 一次实现选一个主技能，其他仅用于明确范围的审查；避免冲突规范同时主导代码 |
+
+通用顺序：使用场景 → 判断任务 → 指标与数据核实 → 布局草图 → 任务验证 → 视觉实现。用户负责业务目标与取舍，AI 可参与全流程提出方案；外观检查通过不代表业务任务已完成。本目录仅登记推荐资源，本次未安装上述项目。
 
 ---
 
