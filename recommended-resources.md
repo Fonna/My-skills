@@ -16,6 +16,7 @@
 | 技能 | Hallmark | [Nutlope/hallmark](https://github.com/Nutlope/hallmark) | 前端设计 Skill + 主题资料 + 静态 / 浏览器检查脚本 | Codex、Claude Code、Cursor、OpenCode；Node 18+ | 按页面用途组织内容，以 50 套主题或自定义方向设计新页面，并审查、改造已有界面 |
 | 技能 | Taste Skill | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) | 前端设计 Skill + 页面素材与动效 + 浏览器检查脚本 | Codex、Claude Code、Cursor 等；Node 22+，Chrome / Edge / Chromium | 用统一页面系统、首屏布局和素材制作公司 / 产品官网，视觉规范较强，不宜直接套用信息密集后台 |
 | 技能 | imagegen-skills / image-to-code | [Leonxlnx/imagegen-skills](https://github.com/Leonxlnx/imagegen-skills) | 开源技能合集中的 image-to-code 技能，主要为设计流程说明 | 能生成图片并编写代码的 Agent，如配置相应工具的 Codex / Claude Code | 先生成分章节设计图，再分析并实现网页；适合视觉方案先行的官网、品牌页与作品集 |
+| 技能 / 工具 | huashu-art-motion | [alchaincyf/huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) | 动画制作 Skill + 本地渲染与质检脚本 | Codex、Claude Code、Kimi；需 Python / uv、FFmpeg、Playwright Chromium | 用代码制作艺术风格、业务流程和数据解说动画，默认导出 MP4，支持透明背景 MOV 与 PNG 静帧 |
 | 插件 | dsh-workbuddy-connect | [corrinehu/dsh-workbuddy-connect](https://github.com/corrinehu/dsh-workbuddy-connect) | DSH provider 插件（npm 包） | macOS / Windows（Web / Desktop / TUI profile） | 把已登录的 WorkBuddy 桌面 App 模型接入 DeepSeek Harness，国内版与国际版两套分组、账号、积分互不混用 |
 | 插件 | text-to-cad | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | CAD 插件（含 Skills、本地建模服务与查看器） | Windows / macOS / Linux，支持 Codex、Claude Code 等 | 用自然语言生成和修改参数化 CAD 零件，支持预览和导出 STEP、STL、3MF、GLB |
 | 开发库 | Anime.js | [juliangarnier/anime](https://github.com/juliangarnier/anime) | 前端动画库（非 Skill） | 浏览器；可用于原生 JavaScript / React 等前端项目 | 用时间线、错峰、滚动联动、SVG、文字和拖拽动画制作个人展示、物流流程及交互演示页面 |
@@ -322,6 +323,58 @@ npx skills add https://github.com/Leonxlnx/imagegen-skills --skill image-to-code
 | 希望搭配多个设计技能 | 一次实现选一个主技能，其他仅用于明确范围的审查；避免冲突规范同时主导代码 |
 
 完整对比、阶段选择、客户价值页面示例和搭配边界见 [前端设计技能选型指南](docs/frontend-design-selection.md)。通用顺序：使用场景 → 判断任务 → 指标与数据核实 → 布局草图 → 任务验证 → 视觉实现。用户负责业务目标与取舍，AI 可参与全流程提出方案；外观检查通过不代表业务任务已完成。本机启用与验证情况分别见各项目条目，不能由进入推荐目录推断已经安装或测试。
+
+---
+
+## huashu-art-motion
+
+- **地址**：[alchaincyf/huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion)
+- **作者 / 维护方**：花叔（alchaincyf）。
+- **协议**：代码和文档为 MIT；字体、部分笔顺数据、示范人物形象及 Clawd 成片有独立许可或使用限制，见上游 README 的许可说明。
+- **形态**：面向编码 Agent 的动画制作 Skill，附 JavaScript 场景、Python 渲染器、参数化片段和质检工具。
+- **核查记录**：2026-11-19，本机 Codex 已安装，Skill 声明版本为 1.3.1；完成 Windows 本地服务单元测试，以及艺术场景和财经图表 MP4 导出验证。不是完整上游测试集或正式业务成片验收。
+
+### 基础介绍
+
+让 Agent 按“镜头表 → 场景或片段代码 → 逐帧渲染 → 质检 → 交付”制作动画。核心渲染链为 JavaScript / Canvas 绘制、Playwright 驱动无头浏览器、FFmpeg 编码视频。上游提供 36 种既有实做风格、额外研究配方、9 种解说语法，其中 8 种附参数化片段；研究配方不能当作已经完成画面验收的风格。
+
+来源：[项目 README](https://github.com/alchaincyf/huashu-art-motion/blob/main/README.md)、[Skill 说明](https://github.com/alchaincyf/huashu-art-motion/blob/main/SKILL.md)、[渲染器](https://github.com/alchaincyf/huashu-art-motion/blob/main/scripts/engine/render.py)。
+
+### 擅长与适用场景
+
+| 场景 | 用法 |
+| --- | --- |
+| 业务流程与规则介绍 | 用单据、节点和流向解释订单处理、金额分配与组织归属；业务规则及比例需另行核实 |
+| 数据故事与财经解说 | 按时间绘制柱形、曲线，突出关键数值，跟随口播安排动画事件 |
+| 艺术风格短片 | 制作梵高、莫奈、水墨、像素等风格的动态场景和转场 |
+| 视频素材制作 | 默认导出 H.264 MP4；参数化片段支持透明背景 ProRes 4444 MOV，也可导出指定时刻 PNG |
+
+GIF 可由成片另行转换；Word / PDF 文档及可交互图表网页不是默认交付物。它适合预先编排的视频表达；需要实时筛选和数据钻取时，应使用仪表盘或网页工具。
+
+### 安装方式与前置条件
+
+通用技能安装命令（按安装器提示选择 Codex 和安装范围）：
+
+```sh
+npx skills add alchaincyf/huashu-art-motion
+```
+
+先具备 Python、uv 和 FFmpeg，再安装 Playwright Chromium。进入项目或已安装技能目录后，可按上游示例验证：
+
+```sh
+uv run --with playwright playwright install chromium
+uv run --with playwright python scripts/engine/render.py --solo 09_postimp --stills 0.3 --out preview
+uv run --with playwright python scripts/engine/render.py --spec scripts/engine/examples/t3_finance_chart.json --out finance-chart.mp4
+```
+
+Windows、macOS、Linux 的环境和额外依赖按实际制作任务检查。基础代码动画无需开通生图或配音账户；人物生成帧和新配音属于可选能力，模型、图像或语音服务可能另行计费。上游系统语音路径仅支持 macOS，Windows 可复用已有音轨或接入另行配置的服务。
+
+### 本机安装与使用边界
+
+- 本机专用 Chromium 下载较慢，本次通过已安装 Google Chrome 156 完成渲染验证；本地增加的 `scripts/windows_chrome.py` 和 `references/local-windows-setup.md` 是兼容辅助，不是上游自带功能，本推荐目录不包含这两个本机文件。其他机器优先使用标准 Chromium 安装方式。
+- 财经图表测试输出为 7 秒、960 × 540、12 fps、84 帧 H.264 MP4，并通过完整解码检查；该测试用于验证管线，不代表最终成片质量或性能基准。
+- 数据、金额、币种、分配比例和适用范围由已确认的业务资料提供；Skill 负责视觉表达，不代替业务口径核实或计算验收。
+- 最终交付前仍需检查文字、动作、镜头节奏和内容正确性；自动质检不能代替审片。个人角色、录音和业务素材不随本推荐条目发布。
 
 ---
 
