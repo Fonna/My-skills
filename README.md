@@ -72,6 +72,8 @@ description: "一句话说明触发场景与用途，并列出触发词。例如
 
 不收入库的外部好 Skill 及配套插件、工具项目（他人维护），记录在 [recommended-resources.md](recommended-resources.md)：按技能、插件、开发库等分类，包含基础介绍、地址、安装方式、适用平台等；条目注明实际类型，例如 Anime.js 为前端动画库。
 
+网页与界面设计工具的选择见 [前端设计技能选型指南](docs/frontend-design-selection.md)：对比 image-to-code、Hallmark、Taste Skill、Impeccable，包含擅长与不擅长、推荐场景、客户价值页面流程及组合使用边界。
+
 ## 新增一个技能
 
 1. 在仓库根目录新建文件夹：`mkdir <your-skill-name>`。

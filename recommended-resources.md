@@ -2,6 +2,8 @@
 
 记录值得收藏的外部（非自制）Skill / Skill 合集，以及可配合技能使用的插件与工具项目：来源、基础介绍、安装方式、适用平台与使用备注。新增条目时在索引表加一行，并按下文模板补充详情；类型列注明项目实际形态。
 
+设计工具可先查阅 [前端设计技能选型指南](docs/frontend-design-selection.md)，按实际任务选择 image-to-code、Hallmark、Taste Skill 或 Impeccable。
+
 ---
 
 ## 索引
@@ -13,6 +15,7 @@
 | 技能 / 工具 | Impeccable | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | 设计 Skill + 命令集 + 确定性检测引擎，另有浏览器扩展 | Codex、Claude Code、Cursor 等；Windows / macOS / Linux，安装与引擎按平台提供 | 从方案梳理到设计评审、局部修改与质量检查；适合外行逐步参与设计，以及后台、仪表盘等任务型界面 |
 | 技能 | Hallmark | [Nutlope/hallmark](https://github.com/Nutlope/hallmark) | 前端设计 Skill + 主题资料 + 静态 / 浏览器检查脚本 | Codex、Claude Code、Cursor、OpenCode；Node 18+ | 按页面用途组织内容，以 50 套主题或自定义方向设计新页面，并审查、改造已有界面 |
 | 技能 | Taste Skill | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) | 前端设计 Skill + 页面素材与动效 + 浏览器检查脚本 | Codex、Claude Code、Cursor 等；Node 22+，Chrome / Edge / Chromium | 用统一页面系统、首屏布局和素材制作公司 / 产品官网，视觉规范较强，不宜直接套用信息密集后台 |
+| 技能 | imagegen-skills / image-to-code | [Leonxlnx/imagegen-skills](https://github.com/Leonxlnx/imagegen-skills) | 开源技能合集中的 image-to-code 技能，主要为设计流程说明 | 能生成图片并编写代码的 Agent，如配置相应工具的 Codex / Claude Code | 先生成分章节设计图，再分析并实现网页；适合视觉方案先行的官网、品牌页与作品集 |
 | 插件 | dsh-workbuddy-connect | [corrinehu/dsh-workbuddy-connect](https://github.com/corrinehu/dsh-workbuddy-connect) | DSH provider 插件（npm 包） | macOS / Windows（Web / Desktop / TUI profile） | 把已登录的 WorkBuddy 桌面 App 模型接入 DeepSeek Harness，国内版与国际版两套分组、账号、积分互不混用 |
 | 插件 | text-to-cad | [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad) | CAD 插件（含 Skills、本地建模服务与查看器） | Windows / macOS / Linux，支持 Codex、Claude Code 等 | 用自然语言生成和修改参数化 CAD 零件，支持预览和导出 STEP、STL、3MF、GLB |
 | 开发库 | Anime.js | [juliangarnier/anime](https://github.com/juliangarnier/anime) | 前端动画库（非 Skill） | 浏览器；可用于原生 JavaScript / React 等前端项目 | 用时间线、错峰、滚动联动、SVG、文字和拖拽动画制作个人展示、物流流程及交互演示页面 |
@@ -95,7 +98,7 @@ DeepSeek Harness 桌面版可在 Plugins → Add plugin 按需安装 `dsh-claude
 - **作者 / 维护方**：Paul Bakaus（pbakaus）。
 - **协议**：Apache-2.0；二次分发时核对 LICENSE、NOTICE 及第三方组件许可。
 - **形态**：面向编程 Agent 的设计技能与命令集，配有确定性反模式检测引擎、CLI、编辑 hook，以及浏览器扩展与 Live Mode；不是独立 BI 平台或无代码数据应用。
-- **核查记录**：2026-11-19，仓库声明版本 4.10.0。已阅读 README、技能正文、Operate、shape、critique 等说明；本条为文档与规则调研，未安装或运行页面实测。
+- **核查记录**：2026-11-19，仓库声明版本 4.10.0。已阅读 README、技能正文、Operate、shape、critique 等说明；初次登记为文档与规则调研，随后完成下述本机安装与检测验证，尚未做真实业务页面的设计效果对比。
 
 ### 基础介绍
 
@@ -148,7 +151,16 @@ npx impeccable install --providers=codex --scope=project
 
 先方案、再实现、后评审是可选的分阶段工作方式，不要求每个小任务都执行全部命令。对用户而言，重点是确认“能否帮助我做判断和采取行动”，而不是先掌握配色、字体与 CSS。
 
-来源：[README](https://github.com/pbakaus/impeccable#readme)、[版本与安装器要求](https://github.com/pbakaus/impeccable/blob/main/package.json)、[技能正文](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/SKILL.md)、[Operate 规则](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/operate.md)、[shape](https://impeccable.style/docs/shape/)、[critique](https://impeccable.style/docs/critique/)、[Live Mode](https://impeccable.style/docs/live/)。擅长、不擅长及客户价值页面的流程为据此整理的选型建议，不是效果实测结论。本次仅登记推荐资源，未安装项目。
+### 本机安装与验证
+
+- **记录日期与环境**：2026-11-19，Windows x64、Codex；通过 Codex 的 skill-installer 安装仓库中的 `.agents/skills/impeccable`，全局技能位置为 `C:\Users\YQN\.codex\skills\impeccable`。技能版本 4.10.0，配套引擎 0.1.27。
+- **引擎来源与校验**：启动器从 GitHub Release 下载失败后，通过官方 npm 平台包 `@impeccable/cli-windows-x64@0.1.27` 取得同版本引擎，SHA256 与技能内 `engine-checksums.txt` 完全一致，放入技能的 `scripts/bin/windows-x64/`。`engine-probe` 返回 `impeccable-engine 0.1.27`。
+- **验证范围**：技能入口、关键参考文档和 Windows 启动器存在；静态扫描与真实浏览器扫描均识别出测试页面的低对比度文字；修正颜色和字号后，浏览器扫描返回空问题列表、退出码 0。此结果证明安装与检测链路可用，不代表真实业务页面、设计评审质量或完整功能已验收。
+- **现有相近技能**：`image-to-code` 与 `redesign-existing-projects` 已启用，前者偏先生图再实现网页，后者偏已有页面视觉改造。磁盘上的 `imagegen-frontend-web`、`gpt-taste`、`high-end-visual-design`、`minimalist-ui`、`industrial-brutalist-ui` 对应技能当时已在 Codex 配置中禁用；此次保留全部既有设置。
+- **建议分工**：客户价值、经营分析等任务型页面优先明确点名 `$impeccable`，采用 Operate 模式；视觉展示页需要图像方案先行时再点名 `image-to-code`。避免让强制生图流程与任务型界面规则同时主导一个实现。
+- **使用入口与尚未验证项**：下一回合可明确点名 `$impeccable`；用 `shape` 先梳理方案，已有页面用 `critique` 先评审。此次安装的是技能与引擎，未配置或验证自动 hook、Live Mode、浏览器扩展，也未向当前项目写入 PRODUCT.md / DESIGN.md。
+
+来源：[README](https://github.com/pbakaus/impeccable#readme)、[版本与安装器要求](https://github.com/pbakaus/impeccable/blob/main/package.json)、[技能正文](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/SKILL.md)、[Operate 规则](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/operate.md)、[shape](https://impeccable.style/docs/shape/)、[critique](https://impeccable.style/docs/critique/)、[Live Mode](https://impeccable.style/docs/live/)。擅长、不擅长及客户价值页面的流程为据此整理的选型建议；本机安装与检测结果仅限上文列出的验证范围。
 
 ---
 
@@ -243,19 +255,73 @@ npx skills add https://github.com/Leonxlnx/taste-skill --skill design-taste-fron
 
 来源：[README](https://github.com/Leonxlnx/taste-skill#readme)、[SKILL.md](https://github.com/Leonxlnx/taste-skill/blob/main/skills/taste-skill/SKILL.md)、[交付检查器](https://github.com/Leonxlnx/taste-skill/blob/main/skills/taste-skill/scripts/gate.mjs)、[变更记录](https://github.com/Leonxlnx/taste-skill/blob/main/CHANGELOG.md)。擅长与不擅长的判断为据此整理的选型建议，不是效果实测结论。
 
-### 三个设计项目的选择建议
+---
+
+## image-to-code（来自 imagegen-skills）
+
+- **地址**：[Leonxlnx/imagegen-skills](https://github.com/Leonxlnx/imagegen-skills)
+- **技能入口**：[skills/image-to-code/SKILL.md](https://github.com/Leonxlnx/imagegen-skills/blob/main/skills/image-to-code/SKILL.md)
+- **作者 / 维护方**：Leonxlnx，与 Taste Skill 为同一作者；这些生图相关技能原位于 taste-skill，2026 年 10 月拆分到 imagegen-skills。
+- **协议**：MIT；实际使用的图片、字体、模型和第三方素材仍须分别遵守对应授权与服务条款。
+- **形态**：社区开源技能，不是 Codex 官方内置技能；imagegen-skills 是仓库名，image-to-code 是其中一个技能名。合集另有 imagegen-frontend-web、imagegen-frontend-mobile 和 brandkit，不应把仓库名当作单个技能的调用名。
+- **核查记录**：2026-11-19，已对照上游 README、技能说明与本地副本的流程规则；本地副本已在 Codex 启用，但无可靠安装版本记录，不能确定具体提交或是否经过修改。未做与其他三个项目的同题生成对比。
+
+### 基础介绍
+
+核心流程为：先生成网页设计图片，再逐项分析布局、文字、字体、间距、颜色和组件，最后写代码尽量还原。视觉任务默认先生成图片；Codex 下倾向每个章节单独生成足够大的图片，必要时补充独立细节图，避免多章节挤在一张难以辨认的长图里。
+
+该技能以 AI 自行生成的设计图为主要视觉依据，不能仅凭名称把它当成任意截图自动转换为生产代码的工具。图片是设计参考；实际网页仍需实现组件、布局、响应式和交互。
+
+### 擅长与适用场景
+
+| 擅长的部分 | 适用场景与选择理由 |
+| --- | --- |
+| 先展示可见方案，再实施 | 内容与主要功能已明确，但用户难以用文字指定风格，希望先看设计图片再确定方向 |
+| 强视觉表现的网页 | 品牌官网、个人作品集、产品展示、活动宣传、编辑式页面、强调首屏的落地页 |
+| 按图分析与还原 | 需要从设计图中提取排版、留白、颜色、按钮与组件关系，并约束编码时的随意改动 |
+| 分章节处理复杂视觉稿 | 多章节官网需要独立、清晰的设计参考，避免一次生成太多内容导致文字和细节无法分析 |
+| 保持一套视觉语言 | 首屏、章节、按钮和素材需要延续同一套方向，同时减少重复模板和无意义嵌套容器 |
+
+### 不擅长与使用边界
+
+- **不能替代需求梳理。** 先生成图片不等于已经确定使用者、判断任务、内容优先级和验收标准。目的不明时，先讨论或采用 Impeccable 的 shape，避免把不合理结构固化成视觉稿。
+- **不宜作为信息密集业务后台的默认流程。** 强调留白、首屏简洁和图像表现；客户列表、复杂筛选、表格、工作台应优先操作效率与合理密度，需要明确约束，不能照搬官网构图。
+- **静态设计图不能覆盖全部交互。** 加载、空数据、错误、权限、分页、排序、筛选、长文本与极端数值等状态需要另行设计、实现和验证。
+- **视觉图不提供真实数据与业务逻辑。** 图中出现的数字、客户名、评价或 Logo 不能作为事实依据；正式页面只使用已核实内容，示意数据应明确标记。生图文字也不能直接当作可靠业务文案。
+- **还原不是像素级保证。** 字体、图片、断点和浏览器环境都会影响结果；应实际渲染网页并验收，不能只看生成的参考图。
+- **时间与成本依赖生图服务。** 分章节、补细节和重新生成可能增加调用；技能本身不附带图片生成模型、额度或独立 API，需要宿主提供生图与代码能力。
+- **本地副本没有独立检测器。** 当前本地目录只有 SKILL.md，不能视为同时具备 Hallmark、Taste Skill 或 Impeccable 的检测工具。响应式、无障碍和功能测试需要其他工具或工程流程配合。
+
+### 安装方式与本机状态
+
+仅面向 Codex、安装到当前项目的示例：
+
+```sh
+npx skills add https://github.com/Leonxlnx/imagegen-skills --skill image-to-code --agent codex
+```
+
+需要全局安装时才加 `-g`。安装命令使用 npx，需要 Node.js；使用技能还须具备实际生图和文件读写能力。安装流程本身不代表生图服务已配置。
+
+本机已存在并启用的目录是 `C:\Users\YQN\.codex\skills\image-to-code-skill`，技能声明名为 image-to-code，调用名为 `$image-to-code`。本次仅记录来源与选型信息，未重装、升级或覆盖该副本。目录名、技能名和仓库名可以不同；不能据此推断本地版本。
+
+来源：[仓库说明](https://github.com/Leonxlnx/imagegen-skills#readme)、[技能规则](https://github.com/Leonxlnx/imagegen-skills/blob/main/skills/image-to-code/SKILL.md)。适用与不适用场景为结合本地规则整理的选型建议，不是效果实测结论。
+
+---
+
+## 四个设计项目的选择建议
 
 | 当前任务 | 选择建议 |
 | --- | --- |
-| 从最终目的梳理客户价值或经营分析页面 | 先核实业务目标、指标、权限和数据；优先试 Impeccable 的 `shape` 将需求转成界面方案，三个项目都不能代替数据口径核实 |
+| 从最终目的梳理客户价值或经营分析页面 | 先核实业务目标、指标、权限和数据；优先试 Impeccable 的 `shape` 将需求转成界面方案，四个项目都不能代替数据口径核实 |
 | 对设计不熟，希望在讨论、评审与修改之间逐步推进 | 优先试 Impeccable；`shape` 先定方案，`critique` 先给建议，再选择局部修改命令 |
+| 内容和功能已确定，希望先看视觉图片再实现 | 优先试 image-to-code；适合图像方案先行的官网、品牌展示和作品集 |
 | 新页面需要设计方向，且希望结构服从任务 | 优先试 Hallmark；已有品牌先锁定 `design.md` |
 | 公司 / 产品官网，需要完整素材、首屏布局和统一视觉表现 | 优先试 Taste Skill |
 | 已有页面需要解释问题并逐项迭代 | 优先试 Impeccable 的 `critique` / `audit` 与定向修改；Hallmark 的 audit / restyle / polish 也可按改造深度选择 |
 | 信息密集后台、表格与表单 | 优先试 Impeccable 的 Operate 模式；保留现有组件与交互系统，不套整屏官网结构 |
 | 希望搭配多个设计技能 | 一次实现选一个主技能，其他仅用于明确范围的审查；避免冲突规范同时主导代码 |
 
-通用顺序：使用场景 → 判断任务 → 指标与数据核实 → 布局草图 → 任务验证 → 视觉实现。用户负责业务目标与取舍，AI 可参与全流程提出方案；外观检查通过不代表业务任务已完成。本目录仅登记推荐资源，本次未安装上述项目。
+完整对比、阶段选择、客户价值页面示例和搭配边界见 [前端设计技能选型指南](docs/frontend-design-selection.md)。通用顺序：使用场景 → 判断任务 → 指标与数据核实 → 布局草图 → 任务验证 → 视觉实现。用户负责业务目标与取舍，AI 可参与全流程提出方案；外观检查通过不代表业务任务已完成。本机启用与验证情况分别见各项目条目，不能由进入推荐目录推断已经安装或测试。
 
 ---
 
