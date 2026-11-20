@@ -2,7 +2,7 @@
 
 记录值得收藏的外部（非自制）Skill / Skill 合集，以及可配合技能使用的插件与工具项目：来源、基础介绍、安装方式、适用平台与使用备注。新增条目时在索引表加一行，并按下文模板补充详情；类型列注明项目实际形态。
 
-设计工具可先查阅 [前端设计技能选型指南](docs/frontend-design-selection.md)，按实际任务选择 image-to-code、Hallmark、Taste Skill 或 Impeccable。
+网页设计与实现工具可先查阅 [前端设计技能选型指南](docs/frontend-design-selection.md)，按实际任务选择 image-to-code、Hallmark、Taste Skill 或 Impeccable，并在实现阶段按需配合 Modern Web Guidance。
 
 ---
 
@@ -13,6 +13,7 @@
 | 技能 | duckdb-skills | [duckdb/duckdb-skills](https://github.com/duckdb/duckdb-skills) | Claude Code 插件（含 6 个 skill） | macOS / Linux（Windows 暂不完整支持） | DuckDB 官方出品，把本地/远程数据文件直接变成可 SQL 探索的数据库 |
 | 技能 / 插件 | Baoyu Design（宝玉设计） | [JimLiu/baoyu-design](https://github.com/JimLiu/baoyu-design) | Agent 技能集 + 本地编辑器，可通过插件接入 | 本地文件型 Agent（Cursor / Claude Code / Codex 等）、DeepSeek Harness；需 Node.js | 用 AI 生成并可视化修改幻灯片、UI 原型、设计系统、数据仪表盘、动画和白板；混合许可，非全仓 MIT |
 | 技能 / 工具 | Impeccable | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | 设计 Skill + 命令集 + 确定性检测引擎，另有浏览器扩展 | Codex、Claude Code、Cursor 等；Windows / macOS / Linux，安装与引擎按平台提供 | 从方案梳理到设计评审、局部修改与质量检查；适合外行逐步参与设计，以及后台、仪表盘等任务型界面 |
+| 技能 / 工具 | Modern Web Guidance | [GoogleChrome/modern-web-guidance](https://github.com/GoogleChrome/modern-web-guidance) | Web 平台指南、技能包与检索 / 旧模式扫描 CLI | Codex、Claude Code、Cursor 等；Node 22+ | 为前端实现提供现代浏览器 API、性能、无障碍与兼容降级指导，可与设计技能配合；不负责业务规划或完整视觉设计 |
 | 技能 | Hallmark | [Nutlope/hallmark](https://github.com/Nutlope/hallmark) | 前端设计 Skill + 主题资料 + 静态 / 浏览器检查脚本 | Codex、Claude Code、Cursor、OpenCode；Node 18+ | 按页面用途组织内容，以 50 套主题或自定义方向设计新页面，并审查、改造已有界面 |
 | 技能 | Taste Skill | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) | 前端设计 Skill + 页面素材与动效 + 浏览器检查脚本 | Codex、Claude Code、Cursor 等；Node 22+，Chrome / Edge / Chromium | 用统一页面系统、首屏布局和素材制作公司 / 产品官网，视觉规范较强，不宜直接套用信息密集后台 |
 | 技能 | imagegen-skills / image-to-code | [Leonxlnx/imagegen-skills](https://github.com/Leonxlnx/imagegen-skills) | 开源技能合集中的 image-to-code 技能，主要为设计流程说明 | 能生成图片并编写代码的 Agent，如配置相应工具的 Codex / Claude Code | 先生成分章节设计图，再分析并实现网页；适合视觉方案先行的官网、品牌页与作品集 |
@@ -165,6 +166,76 @@ npx impeccable install --providers=codex --scope=project
 
 ---
 
+## Modern Web Guidance
+
+- **发布仓库**：[GoogleChrome/modern-web-guidance](https://github.com/GoogleChrome/modern-web-guidance)，用于发布和安装；**源码仓库**：[GoogleChrome/modern-web-guidance-src](https://github.com/GoogleChrome/modern-web-guidance-src)，用于内容编写、CLI 开发、评测与贡献。
+- **官方文档**：[Chrome for Developers](https://developer.chrome.com/docs/modern-web-guidance)。
+- **维护方**：Google Chrome、Microsoft Edge、Mozilla Firefox、MDN 团队与 Web 开发社区共同维护；不是 OpenAI / Codex 内置技能。
+- **协议**：软件代码为 Apache-2.0；`guides/` 中的文档与指南内容为 CC BY 4.0，除另有说明者外。不能把整个项目统一当作 Apache-2.0 文档授权，转载指南须注意署名。
+- **形态**：可供 Agent 检索的 Web 平台知识与实践指南、技能包、CLI；另有 chrome-extensions 技能包。不是 UI 组件库、视觉设计编辑器或生产数据库工具。
+- **核查记录**：2026-11-20，发布仓库 package.json 声明版本 1.0.1，1.0.0 已结束预览。已阅读 README、技能规则、发布记录及导航抽屉示例；本次未安装、未执行 CLI，也未验证真实项目的性能或兼容性收益。
+
+### 基础介绍
+
+帮助 AI 避免沿用训练数据中的旧式前端实现。写 HTML / CSS / 浏览器端 JavaScript 前，先搜索对应的平台能力与 UI 模式，再读取指南中的代码模式、兼容信息、陷阱与降级策略，最后对照实现。搜索使用包内本地语义检索与 BM25，不需要 LLM 或 API Key；首次取得包、更新、部分兼容数据访问及遥测不能与“离线搜索”混为一谈。
+
+与 Impeccable 的分工是：Impeccable 帮助确定用途、结构、交互和设计修改，Modern Web Guidance 为具体实现提供现代 Web 技术参考。它也包含视觉与组件指南，但不应因此承担完整的品牌方向和业务规划。
+
+### 擅长与适用场景
+
+| 擅长的部分 | 适用场景与选择理由 |
+| --- | --- |
+| 原生组件与交互模式 | 实现弹窗、浮层、导航抽屉、表单、提示等功能前，查阅平台能力、焦点管理和默认行为，减少不必要的自定义逻辑 |
+| 现代 CSS 布局与适配 | 容器查询、subgrid、颜色、文字换行等，帮助组件适应实际容器与内容范围 |
+| 性能相关实施指导 | 图片资源优先级、加载、长任务拆分与调度等；明确具体问题后再选择对应优化，而非无目的堆叠 API |
+| 无障碍与兼容降级 | 键盘操作、状态表达、浏览器支持、渐进增强和条件加载 polyfill，避免新特性破坏基本功能 |
+| 按任务检索精确资料 | 用少量指南补充模型上下文，适合 React / Vue 等框架里的标准 HTML / CSS / DOM 问题；原生示例需适配框架生命周期和 SSR |
+| 有范围的旧代码现代化 | `legacy-scan` 发现部分旧模式并映射到指南，核实误报后再制定迁移方案 |
+
+### 不擅长与使用边界
+
+- **不替代业务与完整视觉设计。** 客户价值定义、指标口径、数据权限、信息优先级和品牌风格仍需独立确定；适合作为实现参考，与 Impeccable 等设计流程配合。
+- **不是“全部换成最新 API”。** 必须以目标浏览器、企业终端版本、项目约束与成熟组件为准，保留关键行为的降级。Origin Trial 和近期单引擎等不稳定能力的指南受到 opt-in 门槛限制，不能为赶新而默认开放。
+- **旧模式扫描不是全面审计。** 上游称确定性规则约覆盖指南目录的 20%；发现项需按 keepWhen / dropWhen 判断，零发现不代表无缺陷。明确组件的修复、增加功能或定向审查应先 search / retrieve，不能一律扫描全库。
+- **指南与兼容信息不等于实测。** 仍需运行项目的功能、响应式、性能和无障碍检查，并在实际支持的浏览器验证；不能从上游评测推断本项目会获得相同收益。
+- **不是框架或后端大全。** 示例主要为原生 Web 平台模式，需适配组件框架、类型、SSR 与构建工具；不负责 SQL、API 后端、基础设施或指标治理，也不能替代专业数据表格和图表库的能力评估。
+- **技能入口影响执行流程。** 当前入口要求 HTML / CSS / 客户端 JavaScript 任务优先检索，并规定应用指南后的说明方式。与主设计技能组合时应明确技术指导范围，不新增需求、不为满足指南推翻已确认的页面用途和设计系统。
+- **本地检索不等于默认完全无网络。** 上游默认遥测包含安装信息、调用 Agent、指南 ID 和 Agent 生成的搜索词，声明不收集原始用户提示词。可用 `DISABLE_TELEMETRY=1` 关闭；搜索词也应保持泛化，不带客户、项目或文件等业务标识。npx 的包获取与更新仍需网络。
+
+### 安装方式与使用入口
+
+需要 Node 22+。上游推荐安装向导：
+
+```sh
+npx modern-web-guidance@latest install
+```
+
+按向导选择宿主、范围与技能包；仅需 Web 指导时不必额外安装 Chrome 扩展开发技能。需要选择技能包可使用 `install --choose`，更新用 `npx modern-web-guidance@latest update`。Windows 在需要显式调用可执行文件时使用 `npx.cmd`。
+
+在不注册技能的情况下试查资料（首次运行仍会获取并执行 npm 包）：
+
+```sh
+npx modern-web-guidance@latest search "responsive data table"
+npx modern-web-guidance@latest retrieve "<从搜索结果获得的指南 ID>"
+```
+
+查询聚焦单个 UI 模式或平台能力，采用简短英文动宾短语，避免把多个功能或框架、业务名混入一个查询。不要猜测指南 ID。搜索与读取不是自动修复；仍需 Agent 根据已确认的任务实施。
+
+另有上游提供的 Codex 插件接入方式，是否可用取决于本机 Codex 支持情况，本次未验证：
+
+```sh
+codex plugin marketplace add GoogleChrome/modern-web-guidance
+codex plugin add modern-web-guidance@googlechrome
+```
+
+### 与其他项目的选择建议
+
+客户价值 / 经营后台：先核实业务与数据，再用 Impeccable shape 确定界面；进入代码阶段，按需查询表格、弹窗、表单、布局和性能等指南；最后分别完成设计评审、目标浏览器检查、功能测试和数据对账。官网若由 Hallmark、Taste Skill 或 image-to-code 主导，也可在实施具体交互时采用同样的技术指导。
+
+来源：[README](https://github.com/GoogleChrome/modern-web-guidance#readme)、[技能规则](https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/SKILL.md)、[版本与环境要求](https://github.com/GoogleChrome/modern-web-guidance/blob/main/package.json)、[发布记录](https://github.com/GoogleChrome/modern-web-guidance/releases)、[导航抽屉示例](https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/ui-components/navigation-drawer.md)。以上为文档调研与选型建议，本次仅登记推荐，未安装或运行实测。
+
+---
+
 ## Hallmark
 
 - **地址**：[Nutlope/hallmark](https://github.com/Nutlope/hallmark)
@@ -309,18 +380,20 @@ npx skills add https://github.com/Leonxlnx/imagegen-skills --skill image-to-code
 
 ---
 
-## 四个设计项目的选择建议
+## 五个设计与实现项目的选择建议
 
 | 当前任务 | 选择建议 |
 | --- | --- |
-| 从最终目的梳理客户价值或经营分析页面 | 先核实业务目标、指标、权限和数据；优先试 Impeccable 的 `shape` 将需求转成界面方案，四个项目都不能代替数据口径核实 |
+| 从最终目的梳理客户价值或经营分析页面 | 先核实业务目标、指标、权限和数据；优先试 Impeccable 的 `shape` 将需求转成界面方案，五个项目都不能代替数据口径核实 |
 | 对设计不熟，希望在讨论、评审与修改之间逐步推进 | 优先试 Impeccable；`shape` 先定方案，`critique` 先给建议，再选择局部修改命令 |
 | 内容和功能已确定，希望先看视觉图片再实现 | 优先试 image-to-code；适合图像方案先行的官网、品牌展示和作品集 |
 | 新页面需要设计方向，且希望结构服从任务 | 优先试 Hallmark；已有品牌先锁定 `design.md` |
 | 公司 / 产品官网，需要完整素材、首屏布局和统一视觉表现 | 优先试 Taste Skill |
 | 已有页面需要解释问题并逐项迭代 | 优先试 Impeccable 的 `critique` / `audit` 与定向修改；Hallmark 的 audit / restyle / polish 也可按改造深度选择 |
 | 信息密集后台、表格与表单 | 优先试 Impeccable 的 Operate 模式；保留现有组件与交互系统，不套整屏官网结构 |
-| 希望搭配多个设计技能 | 一次实现选一个主技能，其他仅用于明确范围的审查；避免冲突规范同时主导代码 |
+| 实现弹窗、表单、布局或性能优化，需要确认现代平台做法与降级 | Modern Web Guidance 提供技术指导；界面方案和视觉方向仍由主设计技能与项目约束确定 |
+| 排查全库旧模式、制定前端现代化方案 | Modern Web Guidance 的 legacy-scan 仅覆盖部分规则，核实误报与兼容要求后再改造 |
+| 希望搭配多个技能 | 设计阶段选一个主技能，Modern Web Guidance 在实现阶段提供明确范围的技术参考；其他技能按需审查，避免冲突规范同时主导代码 |
 
 完整对比、阶段选择、客户价值页面示例和搭配边界见 [前端设计技能选型指南](docs/frontend-design-selection.md)。通用顺序：使用场景 → 判断任务 → 指标与数据核实 → 布局草图 → 任务验证 → 视觉实现。用户负责业务目标与取舍，AI 可参与全流程提出方案；外观检查通过不代表业务任务已完成。本机启用与验证情况分别见各项目条目，不能由进入推荐目录推断已经安装或测试。
 
